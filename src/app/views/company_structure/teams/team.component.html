@@ -1,0 +1,33 @@
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-content table-responsive table-full-width">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th *ngFor="let cell of tableData3.headerRow">{{ cell }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td *ngFor="let cell of tableData3.dataRows[0]">{{cell}}</td>
+                        <button class="btn btn-primary btn-fill btn-sm">Update</button>
+                        <button class="btn btn-danger btn-fill btn-sm" style="margin: 5px;">Delete</button>
+                        <button class="btn btn-warning btn-fill btn-sm">Detail</button>
+                    </tr>
+                    <tr>
+                        <td *ngFor="let cell of tableData3.dataRows[1]">{{cell}}</td>
+                        <button class="btn btn-primary btn-fill btn-sm">Update</button>
+                        <button class="btn btn-danger btn-fill btn-sm" style="margin: 5px;">Delete</button>
+                        <button class="btn btn-warning btn-fill btn-sm">Detail</button>
+                    </tr>
+                    <tr>
+                        <td *ngFor="let cell of tableData3.dataRows[2]">{{cell}}</td>
+                        <button class="btn btn-primary btn-fill btn-sm">Update</button>
+                        <button class="btn btn-danger btn-fill btn-sm" style="margin: 5px;">Delete</button>
+                        <button class="btn btn-warning btn-fill btn-sm">Detail</button>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
