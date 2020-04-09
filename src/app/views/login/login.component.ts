@@ -1,60 +1,51 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
-
-declare var $:any;
+import { Component } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { ShareService } from '../../containers/services/share/share.service';
+import { UserService } from '../../containers/services/user/user.service';
+import { AuthService } from '../../containers/services/auth/auth.service';
+import { Router } from '@angular/router';
+import { SUCCESS_STATUS } from '../../containers/constants/config';
 
 @Component({
-    moduleId:module.id,
-    selector: 'login-cmp',
-    templateUrl: './login.component.html'
+  selector: 'app-dashboard',
+  templateUrl: 'login.component.html'
 })
+export class LoginComponent {
+  isError: boolean;
+  isCalling: boolean;
+  formLogin: FormGroup;
+  messageError: string;
+  isValidFormSubmitted: boolean;
 
-export class LoginComponent implements OnInit{
-    test : Date = new Date();
-    private toggleButton;
-    private sidebarVisible: boolean;
-    private nativeElement: Node;
-
-    constructor(private element : ElementRef) {
-        this.nativeElement = element.nativeElement;
-        this.sidebarVisible = false;
+  constructor(public fb: FormBuilder, public authService: AuthService, public router: Router,
+    public shareService: ShareService, public userService: UserService) {
+    this.isError = false;
+    this.messageError = '';
+    this.formLogin = this.fb.group({
+      email: ['', Validators.required],
+      password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(16)]]
+    });
+  }
+  login = () => {
+    this.isValidFormSubmitted = false;
+    if (this.formLogin.valid) {
+      this.isCalling = true;
+      this.isValidFormSubmitted = true;
+      let value = this.formLogin.value;
+      this.authService.login(value['email'], value['password'])
+        .then(res => {
+          this.isCalling = false;
+          if (res['status'] == SUCCESS_STATUS) {
+            this.isError = false;
+            this.router.navigate(['/']);
+          } else {
+            this.isError = true;
+            this.messageError = res['message'];
+          }
+        }).catch(e => {
+          this.isCalling = false;
+          window.alert('Connection Error !');
+        })
     }
-    checkFullPageBackgroundImage(){
-        var $page = $('.full-page');
-        var image_src = $page.data('image');
-
-        if(image_src !== undefined){
-            var image_container = '<div class="full-page-background" style="background-image: url(' + image_src + ') "/>'
-            $page.append(image_container);
-        }
-    };
-
-    ngOnInit(){
-        this.checkFullPageBackgroundImage();
-
-        var navbar : HTMLElement = this.element.nativeElement;
-        this.toggleButton = navbar.getElementsByClassName('navbar-toggle')[0];
-
-        setTimeout(function(){
-            // after 1000 ms we add the class animated to the login/register card
-            $('.card').removeClass('card-hidden');
-        }, 700)
-    }
-    sidebarToggle(){
-        var toggleButton = this.toggleButton;
-        var body = document.getElementsByTagName('body')[0];
-        var sidebar = document.getElementsByClassName('navbar-collapse')[0];
-        if(this.sidebarVisible == false){
-            setTimeout(function(){
-                toggleButton.classList.add('toggled');
-            },500);
-            body.classList.add('nav-open');
-            this.sidebarVisible = true;
-        } else {
-            this.toggleButton.classList.remove('toggled');
-            this.sidebarVisible = false;
-            body.classList.remove('nav-open');
-        }
-    }
+  }
 }

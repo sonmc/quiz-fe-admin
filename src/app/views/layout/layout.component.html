@@ -1,0 +1,35 @@
+<app-header [fixed]="true" [navbarBrandFull]="{src: 'assets/img/brand/logo.png', width: 120, height: 25, alt: 'CodeGym'}" [sidebarToggler]="'lg'" [asideMenuToggler]=false>
+
+    <ul class="nav navbar-nav ml-auto">
+        <div class="btn-group" dropdown>
+            <button dropdownToggle type="button" class="btn btn-primary dropdown-toggle">
+              CodeGym HQ <span class="caret"></span>
+            </button>
+            <ul *dropdownMenu class="dropdown-menu" role="menu">
+                <li role="menuitem"><a class="dropdown-item" href="#">CodeGym Huế</a></li>
+                <li role="menuitem"><a class="dropdown-item" href="#">CodeGym Đà Nẵng</a></li>
+                <li role="menuitem"><a class="dropdown-item" href="#">CodeGym Vinh</a></li>
+            </ul>
+        </div>
+        <li class="nav-item dropdown" dropdown placement="bottom right">
+            <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" dropdownToggle (click)="false">
+               Admin
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" *dropdownMenu aria-labelledby="simple-dropdown">
+                <a class="dropdown-item" href="#"><i class="fa fa-user"></i> Profile</a>
+                <a class="dropdown-item" href="#"><i class="fa fa-lock"></i> Logout</a>
+            </div>
+        </li>
+    </ul>
+</app-header>
+<div class="app-body">
+    <app-sidebar #appSidebar [fixed]="true" [display]="'lg'" [minimized]="sidebarMinimized" (minimizedChange)="toggleMinimize($event)">
+        <app-sidebar-nav [navItems]="navItems" [perfectScrollbar] [disabled]="appSidebar.minimized"></app-sidebar-nav>
+        <app-sidebar-minimizer></app-sidebar-minimizer>
+    </app-sidebar>
+    <main class="main">
+        <div class="container-fluid">
+            <router-outlet></router-outlet>
+        </div>
+    </main>
+</div>

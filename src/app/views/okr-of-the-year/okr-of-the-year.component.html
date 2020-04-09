@@ -1,0 +1,62 @@
+<div class="animated fadeIn">
+    <div class="card">
+        <div class="card-body">
+            <h3>Objective 2020: {{objective}}</h3>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">{{description}}</div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <b> DoD</b>
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <tbody>
+                    <tr *ngFor="let d of dods">
+                        <td>{{d.id}}</td>
+                        <td>{{d.description}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <b>Objective Quarter</b>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered">
+                <tbody>
+                    <ng-container *ngFor="let oq of objectiveQuarter">
+                        <tr>
+                            <td [attr.rowspan]="oq.description.length" style="text-align: center;">{{oq.quarter}}</td>
+                            <td>{{oq.description[0].content}}</td>
+                        </tr>
+                        <ng-container *ngFor="let des of oq.description; let i= index;">
+                            <tr *ngIf="i!=0">
+                                <td>{{des.content}}</td>
+                            </tr>
+                        </ng-container>
+                    </ng-container>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-header">
+            <b>Main mission</b>
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <tbody>
+                    <tr *ngFor="let mm of mainMission">
+                        <td>{{mm.department}}</td>
+                        <td>{{mm.description}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

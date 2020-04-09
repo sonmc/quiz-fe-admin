@@ -1,37 +1,62 @@
-import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule } from '@angular/router';
-import { HttpModule } from '@angular/http';
-import { APP_BASE_HREF } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { NgModule } from '@angular/core';
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { AppComponent }   from './app.component';
+import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 
-import { SidebarModule } from './sidebar/sidebar.module';
-import { FixedPluginModule } from './shared/fixedplugin/fixedplugin.module';
-import { FooterModule } from './shared/footer/footer.module';
-import { NavbarModule} from './shared/navbar/navbar.module';
-import { AdminLayoutComponent } from './layouts/admin/admin-layout.component';
-import { AuthLayoutComponent } from './layouts/auth/auth-layout.component';
-import { AppRoutes } from './app.routing';
+import { AppComponent } from './app.component';
+
+// Import containers 
+
+
+import {
+  AppAsideModule,
+  AppBreadcrumbModule,
+  AppHeaderModule,
+  AppFooterModule,
+  AppSidebarModule,
+} from '@coreui/angular';
+
+// Import routing module
+import { AppRoutingModule } from './app.routing';
+
+// Import 3rd party components
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+import { ChartsModule } from 'ng2-charts';
+import { LayoutComponent } from './views/layout/layout.component';
+import { LoginComponent } from './views/login/login.component';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
-    imports:      [
-        BrowserModule,
-        FormsModule,
-        RouterModule.forRoot(AppRoutes),
-        HttpModule,
-        SidebarModule,
-        NavbarModule,
-        FooterModule,
-        FixedPluginModule
-    ],
-    declarations: [
-        AppComponent,
-        AdminLayoutComponent,
-        AuthLayoutComponent
-    ],
-    bootstrap:    [ AppComponent ]
+  imports: [
+    BrowserModule,
+    FormsModule, 
+    ReactiveFormsModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    AppRoutingModule,
+    AppAsideModule,
+    AppBreadcrumbModule.forRoot(),
+    AppFooterModule,
+    AppHeaderModule,
+    AppSidebarModule,
+    PerfectScrollbarModule,
+    BsDropdownModule.forRoot(),
+    TabsModule.forRoot(),
+    ChartsModule
+  ],
+  declarations: [
+    AppComponent,
+    LayoutComponent, 
+    LoginComponent
+  ],
+  providers: [{
+    provide: LocationStrategy,
+    useClass: HashLocationStrategy
+  }],
+  bootstrap: [AppComponent]
 })
-
 export class AppModule { }

@@ -1,49 +1,55 @@
-import { Routes } from '@angular/router';
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
 
-import { AdminLayoutComponent } from './layouts/admin/admin-layout.component';
-import { AuthLayoutComponent } from './layouts/auth/auth-layout.component';
+import { LayoutComponent } from './views/layout/layout.component';
+import { LoginComponent } from './views/login/login.component';
 
-export const AppRoutes: Routes = [{
+export const routes: Routes = [
+  {
     path: '',
-    redirectTo: 'pages/branch',
+    redirectTo: 'okr-of-the-year',
     pathMatch: 'full',
-}, {
+  }, {
+    path: 'login',
+    component: LoginComponent,
+    data: {
+      title: 'Login Page'
+    }
+  }, {
     path: '',
-    component: AdminLayoutComponent,
-    children: [{
-        path: 'company_structure',
-        loadChildren: './views/company_structure/company_structure.module#CompanyStructureModule'
+    component: LayoutComponent,
+    data: {
+      title: 'Home'
     },
-    {
-        path: 'okr_plan',
-        loadChildren: './views/okr_plan/okr_plan.module#OKRPlanModule'
-    },
-    {
-        path: 'okr_quarter',
-        loadChildren: './views/okr_quarter/okr_quarter.module#OkrQuarterModule'
-    },
-    {
-        path: 'okr_of_year',
-        loadChildren: './views/okr_of_year/okr_of_year.module#OkrOfYearModule'
-    },
-    {
-        path: 'my_okr',
-        loadChildren: './views/my_okr/my_okr.module#MyOkrModule'
-    },
-    {
-        path: 'okr_teaching',
-        loadChildren: './views/okr_teaching/okr_teaching.module#OkrTeachingModule'
-    },
-    {
-        path: 'analysis_statistics',
-        loadChildren: './views/analysis_statistics/analysis_statistics.module#AnalysisStatisticsModule'
-    }]
-}, {
-    path: '',
-    component: AuthLayoutComponent,
-    children: [{
-        path: 'core',
-        loadChildren: './views/login/login.module#LoginModule'
-    }]
-}
+    children: [
+      {
+        path: 'my-okr',
+        loadChildren: () => import('./views/my-okr/my-okr.module').then(m => m.MyOkrModule)
+      }, {
+        path: 'structure',
+        loadChildren: () => import('./views/company-structure/company-structure.module').then(m => m.CompanyStructureModule)
+      }, {
+        path: 'user-role',
+        loadChildren: () => import('./views/company-structure/company-structure.module').then(m => m.CompanyStructureModule)
+      }, {
+        path: 'analysis-statistics',
+        loadChildren: () => import('./views/analysis-statistics/analysis-statistics.module').then(m => m.AnalysisStatisticsModule)
+      }, {
+        path: 'okr-of-the-year',
+        loadChildren: () => import('./views/okr-of-the-year/okr-of-the-year.module').then(m => m.OkrOfYearModule)
+      }, {
+        path: 'okr-of-the-quarter',
+        loadChildren: () => import('./views/okr-of-the-quarter/okr-of-the-quarter.module').then(m => m.OkrOfQuarterModule)
+      }, {
+        path: 'okr-teaching',
+        loadChildren: () => import('./views/okr-teaching/okr-teaching.module').then(m => m.OkrTeachingModule)
+      }
+    ]
+  }
 ];
+
+@NgModule({
+  imports: [RouterModule.forRoot(routes)],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
