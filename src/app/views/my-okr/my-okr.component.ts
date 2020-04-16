@@ -8,21 +8,22 @@ import { AuthService } from '../../containers/services/auth/auth.service';
 })
 export class MyOkrComponent implements OnInit {
 
+  objectives: any;
   constructor(public myOkrService: MyOkrService, public authService: AuthService) {
   }
 
   ngOnInit(): void {
     let user = this.authService.getLocal();
     var myOkr = {
-      Quarter: null,
+      QuarterId: 0,
       EmployeeId: user.employeeId,
-      BranchId: null,
-      DepartmentId: null
+      BranchId: 0,
+      DepartmentId: 0
     }
     this.myOkrService.get(myOkr)
-      .then(res => {
+      .then(res => { 
         if (SUCCESS_STATUS == res['status']) {
-          let datas = res['data'];
+          this.objectives = res['data'];
         }
 
       }).catch(e => {

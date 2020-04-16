@@ -20,16 +20,16 @@ export class ApiService {
     return this.httpClient.post(url, data);
   }
 
-  postWithToken = (url, myOkr): Observable<any> => {
+  postWithToken = (url, data): Observable<any> => {
     let user = this.localStorageService.get('employee');
     let token = user ? user['token'] : null;
     let headers = new HttpHeaders();
     headers = headers.set('Authorization', `Bearer ${token}`);
-    return this.httpClient.post(url, myOkr, { headers });
+    return this.httpClient.post(url, data, { headers });
   }
 
   getWithToken = (url): Observable<any> => {
-    let user = this.localStorageService.get('user');
+    let user = this.localStorageService.get('employee');
     let token = user ? user['token'] : null;
     let headers = new HttpHeaders();
     headers = headers.set('Authorization', `Bearer ${token}`);
@@ -37,7 +37,7 @@ export class ApiService {
   }
 
   uploadFileWithToken = (url, file): Observable<any> => {
-    let user = this.localStorageService.get('user');
+    let user = this.localStorageService.get('employee');
     let token = user ? user['token'] : null;
     let headers = new HttpHeaders();
     headers = headers.set('Authorization', `Bearer ${token}`);

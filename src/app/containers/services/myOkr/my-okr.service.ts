@@ -1,4 +1,3 @@
-import { LocalStorageService } from './../localStorage/local-storage.service';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -15,15 +14,15 @@ export class MyOkrService {
 
     constructor(public httpClient: HttpClient,
         public apiService: ApiService,
-        public router: Router, 
+        public router: Router,
         public authService: AuthService) { }
 
-    get = (myOkr): Promise<Object> => {  
+    get = (myOkr): Promise<Object> => {
         return new Promise((resolve, reject) => {
-            let url = `${API_URL}objective/get`; 
+            let url = `${API_URL}objective/get`;
             this.apiService.postWithToken(url, myOkr).subscribe(res => {
                 resolve(res);
-            }, err => { 
+            }, err => {
                 reject(err);
             })
         })
