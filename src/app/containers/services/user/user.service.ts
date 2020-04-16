@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { User } from '../../models/user/user';
+import { Employee } from '../../models/user/user';
 
 @Injectable({
   providedIn: 'root'
@@ -8,12 +8,11 @@ import { User } from '../../models/user/user';
 
 export class UserService {
   
-  convertUser = (info: Object): User => {
-    let user = new User();
-    user._id = info['_id'];
-    user.username = info['username'];
+  convertUser = (info: Object): Employee => {
+    let user = new Employee();
+    user.employeeId = info['employeeId'];
+    user.username = info['userName'];
     user.token = info['token'];
-    user.createdAt = info['createdAt'];
     return user;
   }  
 }

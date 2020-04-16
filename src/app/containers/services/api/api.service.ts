@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 })
 
 export class ApiService {
-  constructor(public httpClient: HttpClient, public localStorageService: LocalStorageService) {}
+  constructor(public httpClient: HttpClient, public localStorageService: LocalStorageService) { }
 
   get = (url) => {
     return this.httpClient.get(url);
@@ -20,29 +20,29 @@ export class ApiService {
     return this.httpClient.post(url, data);
   }
 
-  postWithToken = (url, data): Observable<any> => {
-    let user = this.localStorageService.get('user');
+  postWithToken = (url, myOkr): Observable<any> => {
+    let user = this.localStorageService.get('employee');
     let token = user ? user['token'] : null;
     let headers = new HttpHeaders();
-    headers = headers.set('authorization', token);
-    return this.httpClient.post(url, data, {headers});
+    headers = headers.set('Authorization', `Bearer ${token}`);
+    return this.httpClient.post(url, myOkr, { headers });
   }
 
   getWithToken = (url): Observable<any> => {
     let user = this.localStorageService.get('user');
     let token = user ? user['token'] : null;
     let headers = new HttpHeaders();
-    headers = headers.set('authorization', token);
-    return this.httpClient.get(url, {headers});
+    headers = headers.set('Authorization', `Bearer ${token}`);
+    return this.httpClient.get(url, { headers });
   }
 
   uploadFileWithToken = (url, file): Observable<any> => {
     let user = this.localStorageService.get('user');
     let token = user ? user['token'] : null;
     let headers = new HttpHeaders();
-    headers = headers.set('authorization', token);
+    headers = headers.set('Authorization', `Bearer ${token}`);
     let form = new FormData();
     form.append('file', file);
-    return this.httpClient.post(url, form, {headers});
+    return this.httpClient.post(url, form, { headers });
   }
 }

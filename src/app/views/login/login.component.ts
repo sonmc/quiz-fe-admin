@@ -22,7 +22,7 @@ export class LoginComponent {
     this.isError = false;
     this.messageError = '';
     this.formLogin = this.fb.group({
-      email: ['', Validators.required],
+      username: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(16)]]
     });
   }
@@ -32,12 +32,15 @@ export class LoginComponent {
       this.isCalling = true;
       this.isValidFormSubmitted = true;
       let value = this.formLogin.value;
-      this.authService.login(value['email'], value['password'])
+      this.authService.login(value['username'], value['password'])
         .then(res => {
           this.isCalling = false;
           if (res['status'] == SUCCESS_STATUS) {
             this.isError = false;
-            this.router.navigate(['/']);
+            let employee = res['data'];
+            this.authService.saveLocal(employee);
+            this.shareService.updateUser(this.userService.convertUser(employee));
+            this.router.navigate(['/my-okr']);
           } else {
             this.isError = true;
             this.messageError = res['message'];

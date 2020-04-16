@@ -7,7 +7,7 @@ import { LoginComponent } from './views/login/login.component';
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'okr-of-the-year',
+    redirectTo: 'login',
     pathMatch: 'full',
   }, {
     path: 'login',
