@@ -15,13 +15,12 @@ export class MyOkrComponent implements OnInit {
   ngOnInit(): void {
     let user = this.authService.getLocal();
     var myOkr = {
-      QuarterId: 0,
-      EmployeeId: user.employeeId,
-      BranchId: 0,
-      DepartmentId: 0
+      employeeId: user.employeeId,
+      branchId: 0,
+      departmentId: 0
     }
     this.myOkrService.get(myOkr)
-      .then(res => { 
+      .then(res => {
         if (SUCCESS_STATUS == res['status']) {
           this.objectives = res['data'];
         }
