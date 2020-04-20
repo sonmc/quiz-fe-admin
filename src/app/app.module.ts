@@ -24,11 +24,11 @@ import { AppRoutingModule } from './app.routing';
 // Import 3rd party components
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
-import { ChartsModule } from 'ng2-charts';
 import { LayoutComponent } from './views/layout/layout.component';
 import { LoginComponent } from './views/login/login.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+
 
 @NgModule({
   imports: [
@@ -45,8 +45,8 @@ import { HttpClientModule } from '@angular/common/http';
     AppSidebarModule,
     PerfectScrollbarModule,
     BsDropdownModule.forRoot(),
-    TabsModule.forRoot(),
-    ChartsModule
+    TabsModule.forRoot()
+
   ],
   declarations: [
     AppComponent,

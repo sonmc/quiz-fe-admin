@@ -1,11 +1,11 @@
 <div class="animated fadeIn">
     <div class="card">
         <div class="card-body">
-            <h3>Objective 2020: {{objective}}</h3>
+            <h3>Objective {{year}}: {{data.objective}}</h3>
         </div>
     </div>
     <div class="card">
-        <div class="card-body">{{description}}</div>
+        <div class="card-body">{{data.description}}</div>
     </div>
     <div class="card">
         <div class="card-header">
@@ -29,14 +29,14 @@
         <div class="card-body">
             <table class="table table-bordered">
                 <tbody>
-                    <ng-container *ngFor="let oq of objectiveQuarter">
+                    <ng-container *ngFor="let oq of data.okrOfQuarters">
                         <tr>
-                            <td [attr.rowspan]="oq.description.length" style="text-align: center;">{{oq.quarter}}</td>
-                            <td>{{oq.description[0].content}}</td>
+                            <td [attr.rowspan]="oq.objectives.length" style="text-align: center;">{{oq.quarterName}}</td>
+                            <td>{{oq.objectives[0].objectiveName}}</td>
                         </tr>
-                        <ng-container *ngFor="let des of oq.description; let i= index;">
+                        <ng-container *ngFor="let des of oq.objectives; let i= index;">
                             <tr *ngIf="i!=0">
-                                <td>{{des.content}}</td>
+                                <td>{{des.objectiveName}}</td>
                             </tr>
                         </ng-container>
                     </ng-container>

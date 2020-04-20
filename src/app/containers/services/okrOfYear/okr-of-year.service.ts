@@ -17,9 +17,9 @@ export class OkrOfYearService {
         public router: Router,
         public authService: AuthService) { }
 
-    get = (): Promise<Object> => {
+    get = (branchId): Promise<Object> => {
         return new Promise((resolve, reject) => {
-            let url = `${API_URL}objective/getOkrOfYear`;
+            let url = `${API_URL}okr/getOkr?branchId=${branchId}`;
             this.apiService.getWithToken(url).subscribe(res => {
                 resolve(res);
             }, err => {

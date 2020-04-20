@@ -2,75 +2,19 @@
     <div class="row">
         <div class="col-md-12">
             <tabset>
-                <tab heading="Quý I">
+                <tab *ngFor="let d of datas" heading="{{d.quarterName}}">
                     <div class="card">
                         <div class="card-header"><b>Objectives</b></div>
                         <span style="margin-left: 20px;font-style: italic;margin-top: 20px;"><a href="#">Create new</a></span>
                         <div class="card-body">
                             <table class="table table-hover">
                                 <tbody>
-                                    <tr>
-                                        <td>Samppa Nori</td>
-                                        <td>2012/01/01</td>
-                                        <td>Member</td>
+                                    <tr *ngFor="let o of d.objectives">
+                                        <td>{{o.objectiveName}}</td>
+                                        <td>{{o.description}}</td>
                                     </tr>
                                 </tbody>
                             </table>
-                            <button type="button" class="btn btn-success">Create New</button>
-                        </div>
-                    </div>
-                </tab>
-                <tab heading="Quý II">
-                    <div class="card">
-                        <div class="card-header"><b>Objectives</b></div>
-                        <span style="margin-left: 20px;font-style: italic;margin-top: 20px;"><a href="#">Create new</a></span>
-                        <div class="card-body">
-                            <table class="table table-hover">
-                                <tbody>
-                                    <tr>
-                                        <td>Samppa Nori</td>
-                                        <td>2012/01/01</td>
-                                        <td>Member</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <button type="button" class="btn btn-success">Create New</button>
-                        </div>
-                    </div>
-                </tab>
-                <tab heading="Quý III">
-                    <div class="card">
-                        <div class="card-header"><b>Objectives</b></div>
-                        <span style="margin-left: 20px;font-style: italic;margin-top: 20px;"><a href="#">Create new</a></span>
-                        <div class="card-body">
-                            <table class="table table-hover">
-                                <tbody>
-                                    <tr>
-                                        <td>Samppa Nori</td>
-                                        <td>2012/01/01</td>
-                                        <td>Member</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <button type="button" class="btn btn-success">Create New</button>
-                        </div>
-                    </div>
-                </tab>
-                <tab heading="Quý IV">
-                    <div class="card">
-                        <div class="card-header"><b>Objectives</b></div>
-                        <span style="margin-left: 20px;font-style: italic;margin-top: 20px;"><a href="#">Create new</a></span>
-                        <div class="card-body">
-                            <table class="table table-hover">
-                                <tbody>
-                                    <tr>
-                                        <td>Friderik Dávid</td>
-                                        <td>2012/01/21</td>
-                                        <td>Staff</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <button type="button" class="btn btn-success">Create New</button>
                         </div>
                     </div>
                 </tab>

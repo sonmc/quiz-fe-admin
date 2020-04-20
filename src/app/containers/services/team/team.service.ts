@@ -11,10 +11,32 @@ export class TeamService {
 
     constructor(public apiService: ApiService) { }
 
-    get = (): Promise<Object> => {
+    getDepartment = (branchId): Promise<Object> => {
         return new Promise((resolve, reject) => {
-            let url = `${API_URL}team/get`;
+            let url = `${API_URL}department/get?branchId=${branchId}`;
             this.apiService.getWithToken(url)
+                .subscribe(res => {
+                    resolve(res);
+                }, err => {
+                    reject(err);
+                })
+        })
+    }
+    getTeams = (departmentId): Promise<Object> => {
+        return new Promise((resolve, reject) => {
+            let url = `${API_URL}team/get?departmentId=${departmentId}`;
+            this.apiService.getWithToken(url)
+                .subscribe(res => {
+                    resolve(res);
+                }, err => {
+                    reject(err);
+                })
+        })
+    }
+    create = (team: Object): Promise<Object> => {
+        return new Promise((resolve, reject) => {
+            let url = `${API_URL}team/create`;
+            this.apiService.postWithToken(url, team)
                 .subscribe(res => {
                     resolve(res);
                 }, err => {

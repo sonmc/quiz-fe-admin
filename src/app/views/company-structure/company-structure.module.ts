@@ -12,7 +12,7 @@ import { UserRoleComponent } from './user-role.component';
 import { EmployeeComponent } from './employee.component';
 import { TeamComponent } from './team.component';
 import { CompanyStructureRoutingModule } from './company-structure-routing.module';
-
+import { ModalModule } from 'ngx-bootstrap/modal'; 
 @NgModule({
   imports: [
     CommonModule,
@@ -21,7 +21,8 @@ import { CompanyStructureRoutingModule } from './company-structure-routing.modul
     BsDropdownModule.forRoot(),
 
     CarouselModule.forRoot(),
-    PaginationModule.forRoot()
+    PaginationModule.forRoot(),
+    ModalModule.forRoot()
   ],
   declarations: [
     TeamComponent,

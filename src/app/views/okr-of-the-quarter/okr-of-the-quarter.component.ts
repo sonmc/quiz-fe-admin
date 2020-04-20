@@ -14,7 +14,7 @@ export class OkrOfQuarterComponent implements OnInit {
   ngOnInit(): void {
     this.service.get()
       .then(res => {
-        if (SUCCESS_STATUS == res['status']) {
+        if (SUCCESS_STATUS == res['status']) { 
           this.datas = res['data'];
         }
 

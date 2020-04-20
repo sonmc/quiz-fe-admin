@@ -44,6 +44,7 @@ export class LoginComponent {
           } else {
             this.isError = true;
             this.messageError = res['message'];
+            this.isCalling = false;
           }
         }).catch(e => {
           this.isCalling = false;
