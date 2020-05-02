@@ -10,17 +10,17 @@ import { AuthService } from './../auth/auth.service';
     providedIn: 'root'
 })
 
-export class MyOkrService {
+export class KrService {
 
     constructor(public httpClient: HttpClient,
         public apiService: ApiService,
         public router: Router,
         public authService: AuthService) { }
 
-    get = (myOkr): Promise<Object> => {
+    get = (data): Promise<Object> => {
         return new Promise((resolve, reject) => {
-            let url = `${API_URL}objective/get`;
-            this.apiService.postWithToken(url, myOkr).subscribe(res => {
+            let url = `${API_URL}kr/get?objectiveId=${data.objectiveId}&employeeId=${data.employeeId}`;
+            this.apiService.getWithToken(url).subscribe(res => {
                 resolve(res);
             }, err => {
                 reject(err);
@@ -30,7 +30,7 @@ export class MyOkrService {
 
     create = (objective: Object): Promise<Object> => {
         return new Promise((resolve, reject) => {
-            let url = `${API_URL}objective/create`;
+            let url = `${API_URL}kr/create`;
             this.apiService.postWithToken(url, objective)
                 .subscribe(res => {
                     resolve(res);

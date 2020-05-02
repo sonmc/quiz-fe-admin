@@ -32,14 +32,14 @@
                     <div class="form-group">
                         <label>Department:</label>
                         <select class="custom-select" name="department" [(ngModel)]="team.departmentId">
-                            <option *ngFor="let department of departments" value="{{department.departmentId}}">{{department.name}}</option>
+                            <option *ngFor="let department of departments" value={{department.departmentId}}>{{department.name}}</option>
                           </select>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" (click)="modalCreate.hide()">Close</button>
-                <button type="button" class="btn btn-primary" (click)="create()">Create</button>
+                <button type="button" class="btn btn-square btn-secondary" (click)="modalCreate.hide()">Close</button>
+                <button type="button" class="btn btn-square btn-primary" (click)="create()">Create</button>
             </div>
         </div>
     </div>

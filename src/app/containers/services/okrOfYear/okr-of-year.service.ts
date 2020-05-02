@@ -27,4 +27,15 @@ export class OkrOfYearService {
             })
         })
     }
+    update = (okr) => {
+        return new Promise((resolve, reject) => {
+            let url = `${API_URL}okr/update`;
+            this.apiService.postWithToken(url, okr)
+                .subscribe(res => {
+                    resolve(res);
+                }, err => {
+                    reject(err);
+                })
+        })
+    }
 }

@@ -10,33 +10,21 @@ import { AuthService } from './../auth/auth.service';
     providedIn: 'root'
 })
 
-export class MyOkrService {
+export class CheckInService {
 
     constructor(public httpClient: HttpClient,
         public apiService: ApiService,
         public router: Router,
         public authService: AuthService) { }
 
-    get = (myOkr): Promise<Object> => {
+    get = (branchId): Promise<Object> => {
         return new Promise((resolve, reject) => {
-            let url = `${API_URL}objective/get`;
-            this.apiService.postWithToken(url, myOkr).subscribe(res => {
+            let url = `${API_URL}objective/getCheckIn?branchId=${branchId}`;
+            this.apiService.getWithToken(url).subscribe(res => {
                 resolve(res);
             }, err => {
                 reject(err);
             })
-        })
-    }
-
-    create = (objective: Object): Promise<Object> => {
-        return new Promise((resolve, reject) => {
-            let url = `${API_URL}objective/create`;
-            this.apiService.postWithToken(url, objective)
-                .subscribe(res => {
-                    resolve(res);
-                }, err => {
-                    reject(err);
-                })
         })
     }
 }

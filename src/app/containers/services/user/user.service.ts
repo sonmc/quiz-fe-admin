@@ -10,7 +10,7 @@ import { API_URL } from '../../constants/config';
 
 export class UserService {
   constructor(public apiService: ApiService) { }
-  
+
   convertUser = (info: Object): Employee => {
     let user = new Employee();
     user.employeeId = info['employeeId'];
@@ -28,6 +28,16 @@ export class UserService {
         }, err => {
           reject(err);
         })
+    })
+  }
+  create = (user): Promise<Object> => {
+    return new Promise((resolve, reject) => {
+      let url = `${API_URL}user/create`;
+      this.apiService.postWithToken(url, user).subscribe(res => {
+        resolve(res);
+      }, err => {
+        reject(err);
+      })
     })
   }
 }

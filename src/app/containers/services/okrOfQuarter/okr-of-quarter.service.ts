@@ -27,4 +27,14 @@ export class OkrQuarterService {
             })
         })
     }
+    create = (objective): Promise<Object> => { 
+        return new Promise((resolve, reject) => {
+            let url = `${API_URL}objective/create`;
+            this.apiService.postWithToken(url, objective).subscribe(res => {
+                resolve(res);
+            }, err => {
+                reject(err);
+            })
+        })
+    }
 }

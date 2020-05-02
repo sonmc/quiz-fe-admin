@@ -26,11 +26,11 @@ export const routes: Routes = [
         path: 'my-okr',
         loadChildren: () => import('./views/my-okr/my-okr.module').then(m => m.MyOkrModule)
       }, {
-        path: 'structure',
-        loadChildren: () => import('./views/company-structure/company-structure.module').then(m => m.CompanyStructureModule)
+        path: 'team',
+        loadChildren: () => import('./views/team/team.module').then(m => m.TeamModule)
       }, {
-        path: 'user-role',
-        loadChildren: () => import('./views/company-structure/company-structure.module').then(m => m.CompanyStructureModule)
+        path: 'employee',
+        loadChildren: () => import('./views/employee/employee.module').then(m => m.EmployeeModule)
       }, {
         path: 'analysis-statistics',
         loadChildren: () => import('./views/analysis-statistics/analysis-statistics.module').then(m => m.AnalysisStatisticsModule)
@@ -43,6 +43,12 @@ export const routes: Routes = [
       }, {
         path: 'okr-teaching',
         loadChildren: () => import('./views/okr-teaching/okr-teaching.module').then(m => m.OkrTeachingModule)
+      }, {
+        path: 'kr',
+        loadChildren: () => import('./views/kr/kr.module').then(m => m.KRModule)
+      }, {
+        path: 'checkin',
+        loadChildren: () => import('./views/checkIn/checkin.module').then(m => m.CheckInModule)
       }
     ]
   }

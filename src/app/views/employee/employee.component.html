@@ -1,0 +1,101 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header"><b>Employees</b></div>
+                <!-- <span style="margin-left: 20px;font-style: italic;margin-top: 20px;"><a href="javascript:;">Create new</a></span> -->
+                <div class="card-body">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th>Dob</th>
+                                <th>Phone number</th>
+                                <th>Address</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let emp of employees">
+                                <td><a href="#">{{emp.userName}}</a></td>
+                                <td>{{emp.email}}</td>
+                                <td>{{emp.dob}}</td>
+                                <td>{{emp.phoneNumber}}</td>
+                                <td>{{emp.address}}</td>
+                                <td>
+                                    <button class="btn btn-square btn-primary btn-sm">Update</button>
+                                    <button class="btn btn-square btn-danger btn-sm">Deactive</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div bsModal #modalCreate="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Create objective</h4>
+                <button type="button" class="close" (click)="modalCreate.hide()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <input type="name" name="name" class="form-control" placeholder="Objective">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" id="start-date" type="date" name="start-date" placeholder="Start date">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" id="end-date" type="date" name="end-date" placeholder="End date">
+                    </div>
+                    <div class="form-group">
+                        <textarea type="name" name="teamname" class="form-control" placeholder="Description"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-square btn-secondary" (click)="modalCreate.hide()">Close</button>
+                <button type="button" class="btn btn-square btn-primary" (click)="create()">Create</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div bsModal #modalUpdate="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Create objective</h4>
+                <button type="button" class="close" (click)="modalCreate.hide()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <input type="name" name="name" class="form-control" placeholder="Objective">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" id="start-date" type="date" name="start-date" placeholder="Start date">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" id="end-date" type="date" name="end-date" placeholder="End date">
+                    </div>
+                    <div class="form-group">
+                        <textarea type="name" name="teamname" class="form-control" placeholder="Description"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-square btn-secondary" (click)="modalCreate.hide()">Close</button>
+                <button type="button" class="btn btn-square btn-primary" (click)="create()">Create</button>
+            </div>
+        </div>
+    </div>
+</div>

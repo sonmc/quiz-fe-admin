@@ -1,0 +1,51 @@
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="accordion" id="accordion">
+                <div class="card">
+                    <div class="search-table-outter wrapper">
+                        <div class="card-body" *ngFor="let d of datas">
+                            <h5> <a href="javascript:;"> {{d.objectiveName}} </a></h5>
+                            <table class="search-table inner">
+                                <tr>
+                                    <th class="kr">Kr</th>
+                                    <th>Owner</th>
+                                    <th>Measurement</th>
+                                    <th>Base Value</th>
+                                    <th>Current Value</th>
+                                    <th>Target Value</th>
+                                    <th>Process</th>
+                                    <th class="week">Week 1</th>
+                                    <th class="week">Week 2</th>
+                                    <th class="week">Week 3</th>
+                                    <th class="week">Week 4</th>
+                                    <th class="week">Week 5</th>
+                                    <th class="week">Week 6</th>
+                                    <th class="week">Week 7</th>
+                                    <th class="week">Week 8</th>
+                                    <th class="week">Week 9</th>
+                                    <th class="week">Week 10</th>
+                                    <th class="week">Week 11</th>
+                                    <th class="week">Week 12</th>
+                                </tr>
+                                <tr *ngFor="let kr of d.krs">
+                                    <td><a href="#">{{kr.description}}</a></td>
+                                    <td>{{kr.employeeId}}</td>
+                                    <td>{{kr.measurement}}</td>
+                                    <td>{{kr.baseValue}}</td>
+                                    <td>{{kr.targetValue}}</td>
+                                    <td>{{kr.currentValue}}</td>
+                                    <td>{{kr.process}}</td>
+                                    <td *ngFor="let w of kr.weeks" (click)="openEditer(kr.krId,w.key)">
+                                        <span *ngIf="!w.isEdit"> {{w.value}}</span>
+                                        <input class="edit-week" *ngIf="w.isEdit" (blur)="hideEditer(kr.krId,w.key)" name="obj" [(ngModel)]="w.value" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

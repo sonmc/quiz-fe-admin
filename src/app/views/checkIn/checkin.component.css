@@ -1,0 +1,39 @@
+ .search-table {
+     table-layout: fixed;
+     margin: 0px auto 0px auto;
+ }
+ 
+ .search-table,
+ td,
+ th {
+     border-collapse: collapse;
+     border: 1px solid #E4E4E4;
+ }
+ 
+ th {
+     padding: 7px 7px;
+     font-size: 10px;
+     color: #444;
+     background: #66C2E0;
+ }
+ 
+ td {
+     padding: 5px 10px;
+     height: 35px;
+ }
+ 
+ .search-table-outter {
+     overflow-x: scroll;
+ }
+ 
+ .kr {
+     min-width: 200px;
+ }
+ 
+ .week {
+     min-width: 50px;
+ }
+ 
+ .edit-week {
+     width: 50px;
+ }

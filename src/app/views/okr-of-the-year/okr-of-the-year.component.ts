@@ -1,7 +1,8 @@
+
 import { Component, OnInit } from '@angular/core';
 import { SUCCESS_STATUS } from '../../containers/constants/config';
 import { OkrOfYearService } from '../../containers/services/okrOfYear/okr-of-year.service';
-
+var $: any;
 
 @Component({
   templateUrl: 'okr-of-the-year.component.html',
@@ -13,6 +14,10 @@ export class OkrOfYearComponent implements OnInit {
     departments: [],
     okrOfQuarters: []
   };
+  objective: String;
+  description: String;
+  desEdited: Boolean = false;
+  objEdited: Boolean = false;
   dateNow = new Date();
   year: Number;
   constructor(public service: OkrOfYearService) {
@@ -24,6 +29,8 @@ export class OkrOfYearComponent implements OnInit {
       .then(res => {
         if (SUCCESS_STATUS == res['status']) {
           this.data = res['data'];
+          this.objective = this.data['objective'];
+          this.description = this.data['description'];
         }
       }).catch(e => {
         window.alert('Connection Error !');
@@ -61,58 +68,37 @@ export class OkrOfYearComponent implements OnInit {
     //     department: "RnD",
     //     description: "Mở 2 cơ sở mới (Tăng công suất lên 1000 CS)"
     //   }
-    // ]
-    // this.objectiveQuarter = [
-    //   {
-    //     id: 1,
-    //     quarter: "Quý I",
-    //     description: [
-    //       {
-    //         id: 1,
-    //         content: "Triển khai mô hình Inbound Sales"
-    //       },
-    //       {
-    //         id: 2,
-    //         content: "Tự động hoá vận hành"
-    //       }
-    //     ]
-    //   }, {
-    //     id: 1,
-    //     quarter: "Quý II",
-    //     description: [
-    //       {
-    //         id: 1,
-    //         content: "Tài chính khoẻ mạnh"
-    //       },
-    //       {
-    //         id: 2,
-    //         content: "Khai trương Hà Nội 2 tháng 4/2020"
-    //       }
-    //     ]
-    //   }, {
-    //     id: 1,
-    //     quarter: "Quý III",
-    //     description: [
-    //       {
-    //         id: 1,
-    //         content: "Khai trương Sài Gòn tháng 7/2020"
-    //       },
-    //       {
-    //         id: 2,
-    //         content: "Phát triển thương hiệu"
-    //       }
-    //     ]
-    //   }, {
-    //     id: 1,
-    //     quarter: "Quý IV",
-    //     description: [
-    //       {
-    //         id: 1,
-    //         content: "Vận hành hiệu quả toàn hệ thống"
-    //       }
-    //     ]
-    //   }
-    // ]
+    // ] 
+  }
+  editDes = () => {
+    this.desEdited = true;
+  }
+  editObj = () => {
+    this.objEdited = true;
+  }
+  hideEditerDes = () => {
+    if (this.description.trim() != this.data['description'].trim()) {
+      this.data['description'] = this.description;
+      this.saveDes(this.data);
+    }
+    this.desEdited = false;
+  }
+  hideEditerObj = () => {
+    if (this.objective.trim() != this.data['objective'].trim()) {
+      this.data['objective'] = this.objective;
+      this.saveDes(this.data);
+    }
+    this.objEdited = false;
+  }
+  saveDes = (data: any) => {
+    this.service.update(data)
+      .then(res => {
+        if (SUCCESS_STATUS == res['status']) {
+          this.data = res['data'];
+        }
+      }).catch(e => {
+        window.alert('Connection Error !');
+      })
   }
 
 }

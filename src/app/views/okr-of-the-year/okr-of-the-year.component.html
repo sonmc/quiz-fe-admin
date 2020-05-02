@@ -1,11 +1,17 @@
 <div class="animated fadeIn">
     <div class="card">
-        <div class="card-body">
-            <h3>Objective {{year}}: {{data.objective}}</h3>
+        <div class="card-body" (click)="editObj()">
+            <h3>Objective {{year}}:
+                <span *ngIf="!objEdited">{{data.objective}}</span>
+                <input *ngIf="objEdited" (blur)="hideEditerObj()" name="obj" [(ngModel)]="objective" />
+            </h3>
         </div>
     </div>
     <div class="card">
-        <div class="card-body">{{data.description}}</div>
+        <div class="card-body" (click)="editDes()">
+            <p *ngIf="!desEdited">{{data.description}}</p>
+            <textarea *ngIf="desEdited" (blur)="hideEditerDes()" name="description" style="width: 100%;height: 120px;" [(ngModel)]="description"></textarea>
+        </div>
     </div>
     <div class="card">
         <div class="card-header">

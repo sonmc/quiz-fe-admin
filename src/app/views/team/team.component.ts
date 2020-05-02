@@ -12,6 +12,7 @@ export class TeamComponent {
   teams: any;
   departments: any;
   team: Object = {
+    teamId: 0,
     teamName: "",
     departmentId: 1
   };
@@ -41,6 +42,7 @@ export class TeamComponent {
   }
 
   create = () => {
+    this.team["departmentId"] = parseInt(this.team["departmentId"]);
     this.teamService.create(this.team)
       .then(res => {
         if (res['status'] == SUCCESS_STATUS) {
