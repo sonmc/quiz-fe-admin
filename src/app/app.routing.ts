@@ -29,6 +29,9 @@ export const routes: Routes = [
         path: 'team',
         loadChildren: () => import('./views/team/team.module').then(m => m.TeamModule)
       }, {
+        path: 'teamDetail/:teamId',
+        loadChildren: () => import('./views/team-detail/team-detail.module').then(m => m.TeamDetailModule)
+      }, {
         path: 'employee',
         loadChildren: () => import('./views/employee/employee.module').then(m => m.EmployeeModule)
       }, {
@@ -44,11 +47,17 @@ export const routes: Routes = [
         path: 'okr-teaching',
         loadChildren: () => import('./views/okr-teaching/okr-teaching.module').then(m => m.OkrTeachingModule)
       }, {
-        path: 'kr',
+        path: 'kr/:id',
         loadChildren: () => import('./views/kr/kr.module').then(m => m.KRModule)
       }, {
         path: 'checkin',
         loadChildren: () => import('./views/checkIn/checkin.module').then(m => m.CheckInModule)
+      }, {
+        path: 'objective/:teamId',
+        loadChildren: () => import('./views/objective/objective.module').then(m => m.ObjectiveModule)
+      }, {
+        path: 'plan/:krId',
+        loadChildren: () => import('./views/plan/plan.module').then(m => m.PlanModule)
       }
     ]
   }

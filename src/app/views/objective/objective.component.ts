@@ -6,9 +6,9 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 import { Router } from '@angular/router';
 
 @Component({
-  templateUrl: 'my-okr.component.html'
+  templateUrl: 'objective.component.html'
 })
-export class MyOkrComponent implements OnInit {
+export class ObjectiveComponent implements OnInit {
   @ViewChild('modalCreate') modalCreate: ModalDirective;
   title: String = "Create";
   objectives: any;
@@ -92,5 +92,8 @@ export class MyOkrComponent implements OnInit {
 
   goKrList = (objectiveId) => {
     this.router.navigate(['/kr', objectiveId]);
+  }
+  back = () => {
+    window.history.back();
   }
 }

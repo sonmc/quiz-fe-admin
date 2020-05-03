@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { SUCCESS_STATUS } from '../../containers/constants/config';
 import { TeamService } from '../../containers/services/team/team.service';
+import { Router } from '@angular/router';
 
 @Component({
   templateUrl: 'team.component.html'
@@ -14,16 +15,16 @@ export class TeamComponent {
   team: Object = {
     teamId: 0,
     teamName: "",
-    departmentId: 1
+    branchId: 1
   };
   branchId: Number = 1;
   departmentId: Number = 1;
-  constructor(public teamService: TeamService) {
+  constructor(public teamService: TeamService, public router: Router) {
   }
 
   ngOnInit(): void {
 
-    this.teamService.getTeams(this.departmentId)
+    this.teamService.getTeams(this.branchId)
       .then(res => {
         if (SUCCESS_STATUS == res['status']) {
           this.teams = res['data'];
@@ -31,25 +32,29 @@ export class TeamComponent {
       }).catch(e => {
         window.alert('Connection Error !');
       })
-    this.teamService.getDepartment(this.branchId)
-      .then(res => {
-        if (SUCCESS_STATUS == res['status']) {
-          this.departments = res['data'];
-        }
-      }).catch(e => {
-        window.alert('Connection Error !');
-      })
   }
 
   create = () => {
-    this.team["departmentId"] = parseInt(this.team["departmentId"]);
+    this.team["branchId"] = parseInt(this.team["branchId"]);
     this.teamService.create(this.team)
       .then(res => {
         if (res['status'] == SUCCESS_STATUS) {
           this.teams.push(res['data']);
           this.modalCreate.hide();
-        } else {
-          //   this.messageError = res['message'];
+        }
+      }).catch(e => {
+        window.alert('Connection Error !');
+      })
+  }
+  delete = (teamId) => {
+    this.teamService.delete(teamId)
+      .then(res => {
+        if (res['status'] == SUCCESS_STATUS) {
+          for (let index = 0; index < this.teams.length; index++) {
+            if (this.teams[index].teamId == teamId) {
+              this.teams.splice(index, 1);
+            }
+          }
         }
       }).catch(e => {
         window.alert('Connection Error !');
@@ -57,5 +62,9 @@ export class TeamComponent {
   }
   openModalCreate = () => {
     this.modalCreate.show()
+  }
+
+  goEmployee = (teamId) => {
+    this.router.navigate(['/teamDetail', teamId]);
   }
 }

@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
-                <div class="card-header"><b>Employees</b></div>
+                <div class="card-header"><b>Team members</b></div>
                 <span style="margin-left: 20px;font-style: italic;margin-top: 20px;"><a (click)="openModalCreate()" href="javascript:;">Create new</a></span>
                 <div class="card-body">
                     <table class="table table-hover">
@@ -23,12 +23,12 @@
                                 <td>{{emp.phoneNumber}}</td>
                                 <td>{{emp.address}}</td>
                                 <td>
-                                    <button class="btn btn-square btn-primary btn-sm">Update</button>
-                                    <button class="btn btn-square btn-danger btn-sm">Deactive</button>
+                                    <button class="btn btn-square btn-danger btn-sm">Remove</button>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
+                    <a href="javascript:;" (click)="back()">Back</a>
                 </div>
             </div>
         </div>

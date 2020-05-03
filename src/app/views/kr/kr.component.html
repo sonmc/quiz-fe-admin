@@ -1,73 +1,114 @@
 <div class="animated fadeIn">
     <div class="row">
         <div class="col-md-12">
-            <div class="search-table-outter wrapper">
-
-                <div class="card-header">
-                    <b>Objective</b>
-                </div>
-                <div class="card-body">
-                    <table class="search-table inner">
-                        <tr>
-                            <th>Col1</th>
-                            <th>Col2</th>
-                            <th>Col3</th>
-                            <th>Col4</th>
-                            <th>Col5</th>
-                            <th>Col6</th>
-                            <th>Col7</th>
-                            <th>Col8</th>
-                            <th>Col9</th>
-                            <th>Col10</th>
-                        </tr>
-                        <tr>
-                            <td><a href="#">Kr 1 </a></td>
-                            <td>The brown fox is mad jumping all over the place for no reason </td>
-                            <td>The brown fox is mad jumping all over the place for no reason </td>
-                            <td>The brown fox is mad jumping all over the place for no reason </td>
-                            <td>The brown fox is mad jumping all over the place for no reason </td>
-                            <td>The brown fox is mad jumping all over the place for no reason </td>
-                            <td>The brown fox is mad jumping all over the place for no reason </td>
-                            <td>The brown fox is mad jumping all over the place for no reason </td>
-                            <td>The brown fox is mad jumping all over the place for no reason </td>
-                            <td>The brown fox is mad jumping all over the place for no reason </td>
-                        </tr>
-                    </table>
-                </div>
-
-                <div class="card-header">
-                    <b>Objective</b>
-                </div>
-                <div class="card-body">
-
-                    <table class="search-table inner">
-                        <tr>
-                            <th>Col1</th>
-                            <th>Col2</th>
-                            <th>Col3</th>
-                            <th>Col4</th>
-                            <th>Col5</th>
-                            <th>Col6</th>
-                            <th>Col7</th>
-                            <th>Col8</th>
-                            <th>Col9</th>
-                            <th>Col10</th>
-                        </tr>
-                        <tr>
-                            <td><a href="#">Kr 1 </a></td>
-                            <td>The brown fox is mad jumping all over the place for no reason </td>
-                            <td>The brown fox is mad jumping all over the place for no reason </td>
-                            <td>The brown fox is mad jumping all over the place for no reason </td>
-                            <td>The brown fox is mad jumping all over the place for no reason </td>
-                            <td>The brown fox is mad jumping all over the place for no reason </td>
-                            <td>The brown fox is mad jumping all over the place for no reason </td>
-                            <td>The brown fox is mad jumping all over the place for no reason </td>
-                            <td>The brown fox is mad jumping all over the place for no reason </td>
-                            <td>The brown fox is mad jumping all over the place for no reason </td>
-                        </tr>
-                    </table>
-                </div>
-
+            <tabset>
+                <tab heading="Key Result">
+                    <div class="card">
+                        <span style="margin-left: 20px;font-style: italic;margin-top: 20px;"><a (click)="openModalCreate()" href="javascript:;">Create new</a></span>
+                        <div class="card-body">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Content</th>
+                                        <th>Owner</th>
+                                        <th>Current Value</th>
+                                        <th>Target Value</th>
+                                        <th>Start Date</th>
+                                        <th>End Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody *ngIf="isNoData">
+                                    <tr *ngFor="let kr of krs">
+                                        <td><a href="javascript:;" (click)="goListPlan(kr.krId)">{{kr.description}}</a></td>
+                                        <td>{{kr.employeeId}}</td>
+                                        <td>{{kr.currentValue}}</td>
+                                        <td>{{kr.targetValue}}</td>
+                                        <td>{{kr.startDate}}</td>
+                                        <td>{{kr.endDate}}</td>
+                                        <td>
+                                            <button (click)="openModalEdit(kr)" class="btn btn-square btn-primary btn-sm">Update</button>
+                                            <button (click)="delete()" class="btn btn-square btn-danger btn-sm">Delete</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="!isNoData">
+                                    <tr style="color:red">
+                                        <td>No data result !</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <a href="javascript:;" (click)="back()">Back</a>
+                        </div>
+                    </div>
+                </tab>
+                <tab heading="DoD">
+                    <div class="card">
+                        <span style="margin-left: 20px;font-style: italic;margin-top: 20px;"><a (click)="openModalCreate()" href="javascript:;">Create new</a></span>
+                        <div class="card-body">
+                            <table class="table table-hover">
+                                <tbody *ngIf="isNoData">
+                                    <tr *ngFor="let d of dods; let i = index">
+                                        <td>{{i+1}}</td>
+                                        <td>{{d.content}}</td>
+                                        <td>
+                                            <button (click)="openModalEdit(d)" class="btn btn-square btn-primary btn-sm">Update</button>
+                                            <button (click)="delete(d.dodId)" class="btn btn-square btn-danger btn-sm">Delete</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                                <tbody *ngIf="!isNoData">
+                                    <tr style="color:red">
+                                        <td>No data result !</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <a href="javascript:;" (click)="back()">Back</a>
+                        </div>
+                    </div>
+                </tab>
+            </tabset>
+        </div>
+    </div>
+</div>
+<div bsModal #modalCreate="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{title}} Kr</h4>
+                <button type="button" class="close" (click)="modalCreate.hide()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <input type="text" name="content" [(ngModel)]="kr.description" class="form-control" placeholder="Content">
+                    </div>
+                    <div class="form-group">
+                        <input type="number" name="curentValue" [(ngModel)]="kr.curentValue" class="form-control" placeholder="Current Value">
+                    </div>
+                    <div class="form-group">
+                        <input type="number" name="target" [(ngModel)]="kr.targetValue" class="form-control" placeholder="Target Value">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="measurement" [(ngModel)]="kr.measurement" class="form-control" placeholder="Measurement">
+                    </div>
+                    <!-- <div class="form-group">
+                        <input class="form-control" [(ngModel)]="kr.startDate" type="date" name="start-date" placeholder="Start date">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" [(ngModel)]="kr.endDate" type="date" name="end-date" placeholder="End date">
+                    </div> -->
+                    <div class="form-group">
+                        <select name="empId" [(ngModel)]="kr.employeeId" class="form-control"> 
+                            <option *ngFor="let emp of employees" [value]="emp.employeeId" [selected]="emp.selected == true">{{emp.userName}}</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-square btn-secondary" (click)="modalCreate.hide()">Close</button>
+                <button type="button" class="btn btn-square btn-primary" (click)="save()">{{title}}</button>
             </div>
         </div>
     </div>

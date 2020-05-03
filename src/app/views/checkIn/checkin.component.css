@@ -31,9 +31,10 @@
  }
  
  .week {
-     min-width: 50px;
+     width: 55px;
  }
  
  .edit-week {
-     width: 50px;
+     height: 25px;
+     width: 33px;
  }

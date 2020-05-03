@@ -10,43 +10,23 @@ import { AuthService } from './../auth/auth.service';
     providedIn: 'root'
 })
 
-export class KrService {
+export class DoDService {
 
     constructor(public httpClient: HttpClient,
         public apiService: ApiService,
         public router: Router,
         public authService: AuthService) { }
-
-    get = (data): Promise<Object> => {
+ 
+    get = (objectiveId): Promise<Object> => {
         return new Promise((resolve, reject) => {
-            let url = `${API_URL}kr/get?objectiveId=${data.objectiveId}&employeeId=${data.employeeId}`;
+            let url = `${API_URL}dod/get?objectiveId=${objectiveId}`;
             this.apiService.getWithToken(url).subscribe(res => {
                 resolve(res);
             }, err => {
                 reject(err);
             })
         })
-    }
-    getDod = (krId): Promise<Object> => {
-        return new Promise((resolve, reject) => {
-            let url = `${API_URL}kr/getDod?krId=${krId}`;
-            this.apiService.getWithToken(url).subscribe(res => {
-                resolve(res);
-            }, err => {
-                reject(err);
-            })
-        })
-    }
-    getEmployee = () => {
-        return new Promise((resolve, reject) => {
-            let url = `${API_URL}user/get`;
-            this.apiService.getWithToken(url).subscribe(res => {
-                resolve(res);
-            }, err => {
-                reject(err);
-            })
-        })
-    }
+    } 
     create = (kr: Object): Promise<Object> => {
         return new Promise((resolve, reject) => {
             let url = `${API_URL}kr/create`;

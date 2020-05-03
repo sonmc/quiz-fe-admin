@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
 
-import { API_URL } from './../../constants/config';
-import { ApiService } from './../api/api.service';
+import { API_URL } from '../../constants/config';
+import { ApiService } from '../api/api.service';
 
 @Injectable({
     providedIn: 'root'
 })
 
-export class TeamService {
+export class PlanService {
 
     constructor(public apiService: ApiService) { }
 
-    getDepartment = (branchId): Promise<Object> => {
+    get = (krId): Promise<Object> => {
         return new Promise((resolve, reject) => {
-            let url = `${API_URL}department/get?branchId=${branchId}`;
+            let url = `${API_URL}plan/get?krId=${krId}`;
             this.apiService.getWithToken(url)
                 .subscribe(res => {
                     resolve(res);
@@ -22,10 +22,10 @@ export class TeamService {
                 })
         })
     }
-    getTeams = (branchId): Promise<Object> => {
+    create = (plan: Object): Promise<Object> => {
         return new Promise((resolve, reject) => {
-            let url = `${API_URL}team/get?branchId=${branchId}`;
-            this.apiService.getWithToken(url)
+            let url = `${API_URL}plan/create`;
+            this.apiService.postWithToken(url, plan)
                 .subscribe(res => {
                     resolve(res);
                 }, err => {
@@ -33,10 +33,10 @@ export class TeamService {
                 })
         })
     }
-    create = (team: Object): Promise<Object> => {
+    update = (plan: Object): Promise<Object> => {
         return new Promise((resolve, reject) => {
-            let url = `${API_URL}team/create`;
-            this.apiService.postWithToken(url, team)
+            let url = `${API_URL}plan/update`;
+            this.apiService.postWithToken(url, plan)
                 .subscribe(res => {
                     resolve(res);
                 }, err => {
@@ -44,10 +44,9 @@ export class TeamService {
                 })
         })
     }
-
-    delete = (teamId): Promise<Object> => {
+    delete = (planId): Promise<Object> => {
         return new Promise((resolve, reject) => {
-            let url = `${API_URL}team/delete?teamId=${teamId}`;
+            let url = `${API_URL}plan/delete?planId=${planId}`;
             this.apiService.getWithToken(url)
                 .subscribe(res => {
                     resolve(res);

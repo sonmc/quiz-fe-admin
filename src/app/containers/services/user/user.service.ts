@@ -19,9 +19,9 @@ export class UserService {
     return user;
   }
 
-  get = (): Promise<Object> => {
+  get = (teamId, branchId): Promise<Object> => {
     return new Promise((resolve, reject) => {
-      let url = `${API_URL}user/get`;
+      let url = `${API_URL}user/get?teamId=${teamId}&branchId=${branchId}`;
       this.apiService.getWithToken(url)
         .subscribe(res => {
           resolve(res);

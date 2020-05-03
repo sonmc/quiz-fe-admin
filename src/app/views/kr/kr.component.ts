@@ -2,40 +2,158 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { SUCCESS_STATUS } from '../../containers/constants/config';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { KrService } from '../../containers/services/kr/kr.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { DoDService } from '../../containers/services/dod/dod.service';
 
 @Component({
-  templateUrl: 'kr.component.html',
-  styleUrls: ['./kr.component.css']
+  templateUrl: 'kr.component.html'
 })
 export class KrComponent implements OnInit {
   @ViewChild('modalCreate') modalCreate: ModalDirective;
   krs: any;
-  constructor(public service: KrService) {
+  dods: any;
+  title: String = "Create";
+  employees: any;
+  isNoData: Boolean = true;
+  objectiveId: Number;
+  kr: Object = {
+    krId: 0,
+    description: "",
+    objectiveId: 0,
+    measurement: "",
+    baseValue: 0,
+    currentValue: 0,
+    targetValue: 0,
+    startDate: null,
+    endDate: null,
+    employeeId: 0,
+    weeks: []
+  };
+  constructor(public service: KrService, private actRoute: ActivatedRoute, public router: Router, public dodService: DoDService) {
+    this.objectiveId = parseInt(this.actRoute.snapshot.params.id);
   }
 
   ngOnInit(): void {
-    var state = window.history.state;
+    this.getKr();
+    this.getDod();
+    this.getEmployee();
+  }
+  save = () => {
+    this.kr["employeeId"] = parseInt(this.kr["employeeId"]);
+    this.kr["objectiveId"] = this.objectiveId;
+    if (this.title == "Create") {
+      this.service.create(this.kr)
+        .then(res => {
+          if (SUCCESS_STATUS == res['status']) {
+            this.krs = res['data'];
+            if (this.krs.length > 0) {
+              this.isNoData = true;
+            } else {
+              this.isNoData = false;
+            }
+          }
+        }).catch(e => {
+          window.alert('Connection Error !');
+        })
+    } else {
+      this.service.update(this.kr)
+        .then(res => {
+          if (SUCCESS_STATUS == res['status']) {
+            this.krs = res['data'];
+          }
+        }).catch(e => {
+          window.alert('Connection Error !');
+        })
+    }
+
+  }
+  delete = () => {
+    this.service.create(this.kr)
+      .then(res => {
+        if (SUCCESS_STATUS == res['status']) {
+          this.krs = res['data'];
+          if (this.krs.length > 0) {
+            this.isNoData = true;
+          } else {
+            this.isNoData = false;
+          }
+        }
+      }).catch(e => {
+        window.alert('Connection Error !');
+      })
+  }
+  openModalCreate = () => {
+    this.title = "Create";
+    this.kr = {
+      krId: 0,
+      description: "",
+      objectiveId: 0,
+      measurement: "",
+      baseValue: 0,
+      currentValue: 0,
+      targetValue: 0,
+      startDate: null,
+      endDate: null,
+      employeeId: 0,
+      weeks: []
+    };
+    this.modalCreate.show();
+  }
+  openModalEdit = (kr) => {
+    this.title = "Edit";
+    this.kr = kr;
+    this.modalCreate.show();
+  }
+  back = () => {
+    window.history.back();
+  }
+
+  getKr() {
     var data = {
-      objectiveId: state.oId,
+      objectiveId: this.objectiveId,
       employeeId: 0
-    } 
+    }
     this.service.get(data)
       .then(res => {
         if (SUCCESS_STATUS == res['status']) {
           this.krs = res['data'];
+          if (this.krs.length > 0) {
+            this.isNoData = true;
+          } else {
+            this.isNoData = false;
+          }
         }
       }).catch(e => {
-       // window.alert('Connection Error !');
+        window.alert('Connection Error !');
       })
-
   }
-  setActiveTab = () => {
-
+  getDod = () => {
+    this.dodService.get(this.objectiveId)
+      .then(res => {
+        if (SUCCESS_STATUS == res['status']) {
+          this.dods = res['data'];
+          if (this.dods.length > 0) {
+            this.isNoData = true;
+          } else {
+            this.isNoData = false;
+          }
+        }
+      }).catch(e => {
+        window.alert('Connection Error !');
+      })
   }
-  create = () => {
-
+  getEmployee() {
+    this.service.getEmployee()
+      .then(res => {
+        if (SUCCESS_STATUS == res['status']) {
+          this.employees = res['data'];
+        }
+      }).catch(e => {
+        window.alert('Connection Error !');
+      })
   }
-  openModalCreate = () => {
-    this.modalCreate.show()
+
+  goListPlan = (krId) => {
+    this.router.navigate(['/plan', krId]);
   }
 }

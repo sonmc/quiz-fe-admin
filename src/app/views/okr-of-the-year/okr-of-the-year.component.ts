@@ -12,7 +12,8 @@ export class OkrOfYearComponent implements OnInit {
     objective: "",
     description: "",
     departments: [],
-    okrOfQuarters: []
+    okrOfQuarters: [],
+    dods: []
   };
   objective: String;
   description: String;
@@ -35,40 +36,6 @@ export class OkrOfYearComponent implements OnInit {
       }).catch(e => {
         window.alert('Connection Error !');
       })
-    // this.dods = [
-    //   {
-    //     id: 1,
-    //     description: "Gấp 3 doanh thu so với 20191"
-    //   }, {
-    //     id: 2,
-    //     description: "Gấp 3 học viên đồng thời (750)"
-    //   }, {
-    //     id: 3,
-    //     description: "Phát triển thương hiệu lên tầm quốc gia"
-    //   }, {
-    //     id: 4,
-    //     description: "Mở 2 cơ sở mới (Tăng công suất lên 1000 CS)"
-    //   }
-    // ];
-    // this.mainMission = [
-    //   {
-    //     id: 1,
-    //     department: "Vân Hành",
-    //     description: "Gấp 3 doanh thu so với 20191"
-    //   }, {
-    //     id: 2,
-    //     department: "Kinh Doanh",
-    //     description: "Gấp 3 học viên đồng thời (750)"
-    //   }, {
-    //     id: 3,
-    //     department: "Marketing",
-    //     description: "Phát triển thương hiệu lên tầm quốc gia"
-    //   }, {
-    //     id: 4,
-    //     department: "RnD",
-    //     description: "Mở 2 cơ sở mới (Tăng công suất lên 1000 CS)"
-    //   }
-    // ] 
   }
   editDes = () => {
     this.desEdited = true;

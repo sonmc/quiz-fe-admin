@@ -39,4 +39,26 @@ export class MyOkrService {
                 })
         })
     }
+    remove = (objectiveId) => {
+        return new Promise((resolve, reject) => {
+            let url = `${API_URL}objective/delete?objectiveId=${objectiveId}`;
+            this.apiService.getWithToken(url)
+                .subscribe(res => {
+                    resolve(res);
+                }, err => {
+                    reject(err);
+                })
+        })
+    }
+    update = (objective) => {
+        return new Promise((resolve, reject) => {
+            let url = `${API_URL}objective/update`;
+            this.apiService.postWithToken(url, objective)
+                .subscribe(res => {
+                    resolve(res);
+                }, err => {
+                    reject(err);
+                })
+        })
+    }
 }

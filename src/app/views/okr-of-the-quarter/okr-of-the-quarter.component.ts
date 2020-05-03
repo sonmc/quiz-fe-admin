@@ -60,6 +60,6 @@ export class OkrOfQuarterComponent implements OnInit {
     this.modalCreate.show()
   }
   goKrList = (objectiveId) => {
-    this.router.navigate(['/kr'], { state: { oId: objectiveId } });
+    this.router.navigate(['/kr', objectiveId]);
   }
 }
