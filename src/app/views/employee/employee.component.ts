@@ -5,6 +5,7 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
+  selector: 'app-employee',
   templateUrl: 'employee.component.html'
 })
 export class EmployeeComponent implements OnInit {

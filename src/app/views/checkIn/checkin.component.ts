@@ -43,13 +43,26 @@ export class CheckInComponent implements OnInit {
       }
     }
   }
-  hideEditer = (krId) => {
-    for (let i = 0; i < this.datas.length; i++) {
-      for (let index = 0; index < this.datas[i].krs.length; index++) {
-        for (let j = 0; j < this.datas[i].krs[index].weeks.length; j++) {
-          this.datas[i].krs[index].weeks[j].isEdit = false;
-        }
-      }
+  hideEditer = (w) => {
+    var week = {
+      key: w.key,
+      krId: w.krId,
+      value: w.value,
+      weekId: w.weekId
     }
+    this.service.checkin(week)
+      .then(res => {
+        if (SUCCESS_STATUS == res['status']) {
+          for (let i = 0; i < this.datas.length; i++) {
+            for (let index = 0; index < this.datas[i].krs.length; index++) {
+              for (let j = 0; j < this.datas[i].krs[index].weeks.length; j++) {
+                this.datas[i].krs[index].weeks[j].isEdit = false;
+              }
+            }
+          }
+        }
+      }).catch(e => {
+        window.alert('Connection Error !');
+      })
   }
 }

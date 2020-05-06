@@ -6,16 +6,25 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DoDService } from '../../containers/services/dod/dod.service';
 
 @Component({
+  selector: 'app-kr',
   templateUrl: 'kr.component.html'
 })
 export class KrComponent implements OnInit {
   @ViewChild('modalCreate') modalCreate: ModalDirective;
+  @ViewChild('modalCreateDod') modalCreateDod: ModalDirective;
   krs: any;
   dods: any;
   title: String = "Create";
   employees: any;
   isNoData: Boolean = true;
+  isNoDataKr: Boolean = true;
   objectiveId: Number;
+  teamId: Number;
+  dod: Object = {
+    dodId: 0,
+    content: "",
+    objectiveId: 0
+  }
   kr: Object = {
     krId: 0,
     description: "",
@@ -36,7 +45,6 @@ export class KrComponent implements OnInit {
   ngOnInit(): void {
     this.getKr();
     this.getDod();
-    this.getEmployee();
   }
   save = () => {
     this.kr["employeeId"] = parseInt(this.kr["employeeId"]);
@@ -55,23 +63,42 @@ export class KrComponent implements OnInit {
         }).catch(e => {
           window.alert('Connection Error !');
         })
-    } else {
-      this.service.update(this.kr)
-        .then(res => {
-          if (SUCCESS_STATUS == res['status']) {
-            this.krs = res['data'];
-          }
-        }).catch(e => {
-          window.alert('Connection Error !');
-        })
     }
-
+    // else {
+    //   this.service.update(this.kr)
+    //     .then(res => {
+    //       if (SUCCESS_STATUS == res['status']) {
+    //         this.krs = res['data'];
+    //       }
+    //     }).catch(e => {
+    //       window.alert('Connection Error !');
+    //     })
+    // }
   }
   delete = () => {
     this.service.create(this.kr)
       .then(res => {
         if (SUCCESS_STATUS == res['status']) {
           this.krs = res['data'];
+          if (this.krs.length > 0) {
+            this.isNoData = true;
+          } else {
+            this.isNoData = false;
+          }
+        }
+      }).catch(e => {
+        window.alert('Connection Error !');
+      })
+  }
+  deleteDod = (dodId) => {
+    this.dodService.delete(dodId)
+      .then(res => {
+        if (SUCCESS_STATUS == res['status']) {
+          for (let index = 0; index < this.dods.length; index++) {
+            if (this.dods[index].dodId == dodId) {
+              this.dods.splice(index, 1);
+            }
+          }
           if (this.krs.length > 0) {
             this.isNoData = true;
           } else {
@@ -89,9 +116,8 @@ export class KrComponent implements OnInit {
       description: "",
       objectiveId: 0,
       measurement: "",
-      baseValue: 0,
-      currentValue: 0,
-      targetValue: 0,
+      baseValue: "",
+      targetValue: "",
       startDate: null,
       endDate: null,
       employeeId: 0,
@@ -99,11 +125,11 @@ export class KrComponent implements OnInit {
     };
     this.modalCreate.show();
   }
-  openModalEdit = (kr) => {
-    this.title = "Edit";
-    this.kr = kr;
-    this.modalCreate.show();
-  }
+  // openModalEdit = (kr) => {
+  //   this.title = "Edit";
+  //   this.kr = kr;
+  //   this.modalCreate.show();
+  // }
   back = () => {
     window.history.back();
   }
@@ -118,9 +144,9 @@ export class KrComponent implements OnInit {
         if (SUCCESS_STATUS == res['status']) {
           this.krs = res['data'];
           if (this.krs.length > 0) {
-            this.isNoData = true;
+            this.isNoDataKr = true;
           } else {
-            this.isNoData = false;
+            this.isNoDataKr = false;
           }
         }
       }).catch(e => {
@@ -142,18 +168,40 @@ export class KrComponent implements OnInit {
         window.alert('Connection Error !');
       })
   }
-  getEmployee() {
-    this.service.getEmployee()
-      .then(res => {
-        if (SUCCESS_STATUS == res['status']) {
-          this.employees = res['data'];
-        }
-      }).catch(e => {
-        window.alert('Connection Error !');
-      })
-  }
+  // getEmployee(teamId, branchId) {
+  //   this.service.getEmployee(teamId, branchId)
+  //     .then(res => {
+  //       if (SUCCESS_STATUS == res['status']) {
+  //         this.employees = res['data'];
+  //       }
+  //     }).catch(e => {
+  //       window.alert('Connection Error !');
+  //     })
+  // }
 
   goListPlan = (krId) => {
     this.router.navigate(['/plan', krId]);
+  }
+
+  openModalCreateDod = () => {
+    this.modalCreateDod.show();
+  }
+
+  saveDod = () => {
+    this.dod["objectiveId"] = this.objectiveId;
+    this.dodService.create(this.dod)
+      .then(res => {
+        if (SUCCESS_STATUS == res['status']) {
+          this.dods.push(res['data']);
+          if (this.dods.length > 0) {
+            this.isNoData = true;
+          } else {
+            this.isNoData = false;
+          }
+        }
+        this.modalCreateDod.hide();
+      }).catch(e => {
+        window.alert('Connection Error !');
+      })
   }
 }

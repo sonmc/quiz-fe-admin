@@ -6,7 +6,7 @@
             <table class="table table-hover">
                 <tbody>
                     <tr *ngFor="let ob of objectives">
-                        <td><a href="javascript:;" (click)="goKrList(ob.objectiveId)">{{ob.objectiveName}}</a></td>
+                        <td><a href="javascript:;" (click)="goKrList(ob.objectiveId, ob.teamId)">{{ob.objectiveName}}</a></td>
                         <td>{{ob.description}}</td>
                         <td>
                             <button (click)="openModalUpdate(ob)" class="btn btn-square btn-primary btn-sm">Update</button>

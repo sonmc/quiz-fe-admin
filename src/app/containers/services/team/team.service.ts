@@ -11,17 +11,6 @@ export class TeamService {
 
     constructor(public apiService: ApiService) { }
 
-    getDepartment = (branchId): Promise<Object> => {
-        return new Promise((resolve, reject) => {
-            let url = `${API_URL}department/get?branchId=${branchId}`;
-            this.apiService.getWithToken(url)
-                .subscribe(res => {
-                    resolve(res);
-                }, err => {
-                    reject(err);
-                })
-        })
-    }
     getTeams = (branchId): Promise<Object> => {
         return new Promise((resolve, reject) => {
             let url = `${API_URL}team/get?branchId=${branchId}`;
@@ -49,6 +38,17 @@ export class TeamService {
         return new Promise((resolve, reject) => {
             let url = `${API_URL}team/delete?teamId=${teamId}`;
             this.apiService.getWithToken(url)
+                .subscribe(res => {
+                    resolve(res);
+                }, err => {
+                    reject(err);
+                })
+        })
+    }
+    getObjOfTeam = (data): Promise<Object> => {
+        return new Promise((resolve, reject) => {
+            let url = `${API_URL}objective/get`;
+            this.apiService.postWithToken(url, data)
                 .subscribe(res => {
                     resolve(res);
                 }, err => {

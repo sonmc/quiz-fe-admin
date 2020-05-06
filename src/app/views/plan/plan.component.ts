@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { PlanService } from '../../containers/services/plan/plan.service';
 
 @Component({
+  selector: 'app-plan',
   templateUrl: 'plan.component.html'
 })
 export class PlanComponent implements OnInit {
@@ -34,7 +35,7 @@ export class PlanComponent implements OnInit {
       this.service.create(this.plan)
         .then(res => {
           if (SUCCESS_STATUS == res['status']) {
-            this.plans = res['data'];
+            this.plans.push(res['data']);
             if (this.plans.length > 0) {
               this.isNoData = true;
             } else {
@@ -54,18 +55,18 @@ export class PlanComponent implements OnInit {
           window.alert('Connection Error !');
         })
     }
-
+    this.modalCreate.hide();
   }
-  delete = () => {
-    this.service.create(this.plan)
+  delete = (planId) => {
+    this.service.delete(planId)
       .then(res => {
         if (SUCCESS_STATUS == res['status']) {
-          this.plans = res['data'];
-          if (this.plans.length > 0) {
-            this.isNoData = true;
-          } else {
-            this.isNoData = false;
-          }
+          for (let index = 0; index < this.plans.length; index++) {
+            if (this.plans[index].planId == planId) {
+              this.plans.splice(index, 1);
+            }
+          };
+          this.checkDataInList(this.plans);
         }
       }).catch(e => {
         window.alert('Connection Error !');
@@ -83,9 +84,9 @@ export class PlanComponent implements OnInit {
     };
     this.modalCreate.show();
   }
-  openModalEdit = (kr) => {
-    this.title = "Edit";
-    this.plan = kr;
+  openModalEdit = (plan) => {
+    this.title = "Edit"; 
+    this.plan = plan;
     this.modalCreate.show();
   }
   back = () => {
@@ -97,14 +98,19 @@ export class PlanComponent implements OnInit {
       .then(res => {
         if (SUCCESS_STATUS == res['status']) {
           this.plans = res['data'];
-          if (this.plans.length > 0) {
-            this.isNoData = true;
-          } else {
-            this.isNoData = false;
-          }
+
         }
       }).catch(e => {
         window.alert('Connection Error !');
       })
   }
+
+  checkDataInList = (plans) => {
+    if (plans.length > 0) {
+      this.isNoData = true;
+    } else {
+      this.isNoData = false;
+    }
+  }
 }
+

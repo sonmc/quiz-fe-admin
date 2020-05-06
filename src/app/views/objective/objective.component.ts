@@ -6,6 +6,7 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 import { Router } from '@angular/router';
 
 @Component({
+  selector: 'app-objective',
   templateUrl: 'objective.component.html'
 })
 export class ObjectiveComponent implements OnInit {
@@ -24,7 +25,7 @@ export class ObjectiveComponent implements OnInit {
     var myOkr = {
       employeeId: this.currentUser.employeeId,
       branchId: 0,
-      departmentId: 0
+      teamId: 0
     }
     this.myOkrService.get(myOkr)
       .then(res => {

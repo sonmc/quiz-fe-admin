@@ -20,11 +20,24 @@ export class CheckInService {
     get = (branchId): Promise<Object> => {
         return new Promise((resolve, reject) => {
             let url = `${API_URL}objective/getCheckIn?branchId=${branchId}`;
-            this.apiService.getWithToken(url).subscribe(res => {
-                resolve(res);
-            }, err => {
-                reject(err);
-            })
+            this.apiService.getWithToken(url)
+                .subscribe(res => {
+                    resolve(res);
+                }, err => {
+                    reject(err);
+                })
+        })
+    }
+
+    checkin = (week) => {
+        return new Promise((resolve, reject) => {
+            let url = `${API_URL}kr/checkin`;
+            this.apiService.postWithToken(url, week)
+                .subscribe(res => {
+                    resolve(res);
+                }, err => {
+                    reject(err);
+                })
         })
     }
 }

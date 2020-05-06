@@ -38,7 +38,7 @@
                                     <td>{{kr.process}}</td>
                                     <td *ngFor="let w of kr.weeks" (click)="openEditer(kr.krId,w.key)">
                                         <span *ngIf="!w.isEdit"> {{w.value}}</span>
-                                        <input class="edit-week" *ngIf="w.isEdit" (blur)="hideEditer(kr.krId,w.key)" name="obj" [(ngModel)]="w.value" />
+                                        <input class="edit-week" length="100" *ngIf="w.isEdit" (blur)="hideEditer(w)" name="obj" [(ngModel)]="w.value" />
                                     </td>
                                 </tr>
                             </table>

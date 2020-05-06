@@ -3,6 +3,7 @@ import { UserService } from '../../containers/services/user/user.service';
 import { SUCCESS_STATUS } from '../../containers/constants/config';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TeamService } from '../../containers/services/team/team.service';
 
 @Component({
     templateUrl: 'team-detail.component.html'
@@ -10,15 +11,20 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class TeamDetailComponent implements OnInit {
     @ViewChild('modalCreate') modalCreate: ModalDirective;
     employees: any;
+    objectives: any;
     employee: Object;
     teamId: Number;
     branchId: Number;
-    constructor(public userService: UserService, private actRoute: ActivatedRoute, public router: Router) {
+    constructor(public userService: UserService, private actRoute: ActivatedRoute, public router: Router, public teamService: TeamService) {
         this.teamId = parseInt(this.actRoute.snapshot.params.teamId);
         this.branchId = 1;
     }
 
     ngOnInit(): void {
+        this.getTeamMember();
+        this.getObjOfTeam();
+    }
+    getTeamMember = () => {
         this.userService.get(this.teamId, this.branchId)
             .then(res => {
                 if (SUCCESS_STATUS == res['status']) {
@@ -28,7 +34,21 @@ export class TeamDetailComponent implements OnInit {
                 window.alert('Connection Error !');
             })
     }
-
+    getObjOfTeam = () => {
+        var data = {
+            teamId: this.teamId,
+            employeeId: 0,
+            branchId: 0
+        }
+        this.teamService.getObjOfTeam(data)
+            .then(res => {
+                if (SUCCESS_STATUS == res['status']) {
+                    this.objectives = res["data"];
+                }
+            }).catch(e => {
+                window.alert('Connection Error !');
+            })
+    }
     create = () => {
         this.userService.create(this.employee)
             .then(res => {

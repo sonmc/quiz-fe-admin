@@ -1,36 +1,59 @@
 <div class="animated fadeIn">
     <div class="row">
-        <div class="col-lg-12">
-            <div class="card">
-                <div class="card-header"><b>Team members</b></div>
-                <span style="margin-left: 20px;font-style: italic;margin-top: 20px;"><a (click)="openModalCreate()" href="javascript:;">Create new</a></span>
-                <div class="card-body">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>Username</th>
-                                <th>Email</th>
-                                <th>Dob</th>
-                                <th>Phone number</th>
-                                <th>Address</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let emp of employees">
-                                <td><a href="javascript:;" (click)="goOList(emp.employeeId)">{{emp.userName}}</a></td>
-                                <td>{{emp.email}}</td>
-                                <td>{{emp.dob}}</td>
-                                <td>{{emp.phoneNumber}}</td>
-                                <td>{{emp.address}}</td>
-                                <td>
-                                    <button class="btn btn-square btn-danger btn-sm">Remove</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <a href="javascript:;" (click)="back()">Back</a>
-                </div>
-            </div>
+        <div class="col-md-12">
+            <tabset>
+                <tab heading="Team members">
+                    <div class="card">
+                        <span style="margin-left: 20px;font-style: italic;margin-top: 20px;"><a (click)="openModalCreate()" href="javascript:;">Create new</a></span>
+                        <div class="card-body">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Username</th>
+                                        <th>Email</th>
+                                        <th>Dob</th>
+                                        <th>Phone number</th>
+                                        <th>Address</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let emp of employees">
+                                        <td><a href="javascript:;" (click)="goOList(emp.employeeId)">{{emp.userName}}</a></td>
+                                        <td>{{emp.email}}</td>
+                                        <td>{{emp.dob}}</td>
+                                        <td>{{emp.phoneNumber}}</td>
+                                        <td>{{emp.address}}</td>
+                                        <td>
+                                            <button class="btn btn-square btn-danger btn-sm">Remove</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <a href="javascript:;" (click)="back()">Back</a>
+                        </div>
+                    </div>
+                </tab>
+                <tab heading="Objectives">
+                    <div class="card">
+                        <span style="margin-left: 20px;font-style: italic;margin-top: 20px;"><a href="javascript:;"  (click)="openModalCreate()">Create new</a></span>
+                        <div class="card-body">
+                            <table class="table table-hover">
+                                <tbody>
+                                    <tr *ngFor="let ob of objectives">
+                                        <td><a href="javascript:;" (click)="goKrList(ob.objectiveId, ob.teamId)">{{ob.objectiveName}}</a></td>
+                                        <td>{{ob.description}}</td>
+                                        <td>
+                                            <button (click)="openModalUpdate(ob)" class="btn btn-square btn-primary btn-sm">Update</button>
+                                            <button (click)="remove(ob.objectiveId)" class="btn btn-square btn-danger btn-sm">Delete</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <a href="javascript:;" (click)="back()">Back</a>
+                        </div>
+                    </div>
+                </tab>
+            </tabset>
         </div>
     </div>
 </div>

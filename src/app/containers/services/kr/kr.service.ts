@@ -37,9 +37,9 @@ export class KrService {
             })
         })
     }
-    getEmployee = () => {
+    getEmployee = (teamId, branchId) => {
         return new Promise((resolve, reject) => {
-            let url = `${API_URL}user/get`;
+            let url = `${API_URL}user/get?teamId=${teamId}&branchId=${branchId}`;
             this.apiService.getWithToken(url).subscribe(res => {
                 resolve(res);
             }, err => {
