@@ -10,7 +10,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
   imports: [
     TeamRoutingModule,
     CommonModule,
-    FormsModule,
+    FormsModule, 
     ModalModule.forRoot()
   ],
   declarations: [TeamComponent]

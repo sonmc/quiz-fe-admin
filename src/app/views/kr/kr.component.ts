@@ -184,6 +184,11 @@ export class KrComponent implements OnInit {
   }
 
   openModalCreateDod = () => {
+    this.dod = {
+      dodId: 0,
+      content: "",
+      objectiveId: 0
+    }
     this.modalCreateDod.show();
   }
 

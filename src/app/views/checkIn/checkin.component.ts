@@ -43,14 +43,8 @@ export class CheckInComponent implements OnInit {
       }
     }
   }
-  hideEditer = (w) => {
-    var week = {
-      key: w.key,
-      krId: w.krId,
-      value: w.value,
-      weekId: w.weekId
-    }
-    this.service.checkin(week)
+  hideEditer = (kr, w) => {
+    this.service.checkin(kr.krId, w.weekId, w.value)
       .then(res => {
         if (SUCCESS_STATUS == res['status']) {
           for (let i = 0; i < this.datas.length; i++) {

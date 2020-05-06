@@ -44,14 +44,16 @@ export class MyOkrComponent implements OnInit {
     }
     this.modalCreate.show()
   }
+
   openModalUpdate = (objective) => {
     this.title = "Update";
-    this.objective = objective;
+    this.objective = Object.assign({}, objective);
     this.modalCreate.show()
   }
+
   create = () => {
     this.objective['employeeId'] = this.currentUser.employeeId;
-
+    debugger
     if (this.title == "Create") {
       this.myOkrService.create(this.objective)
         .then(res => {
@@ -66,6 +68,11 @@ export class MyOkrComponent implements OnInit {
       this.myOkrService.update(this.objective)
         .then(res => {
           if (res['status'] == SUCCESS_STATUS) {
+            for (let index = 0; index < this.objectives.length; index++) {
+              if (this.objectives[index].objectiveId == this.objective["objectiveId"]) {
+                this.objectives[index] = this.objective;
+              }
+            }
             this.modalCreate.hide();
           }
         }).catch(e => {
