@@ -7,12 +7,12 @@
                 <div class="card-body">
                     <table class="table table-hover">
                         <tbody>
-                            <tr *ngFor="let ob of teams">
-                                <td><a href="javascript:;" (click)="goEmployee(ob.teamId)">{{ob.teamName}}</a></td>
-                                <td>members: {{ob.members.length}}</td>
+                            <tr *ngFor="let team of teams">
+                                <td><a href="javascript:;" (click)="goEmployee(team.teamId)">{{team.teamName}}</a></td>
+                                <td>members: {{team.members.length}}</td>
                                 <td>
-                                    <button class="btn btn-square btn-primary btn-sm">Update</button>
-                                    <button (click)="delete(ob.teamId)" class="btn btn-square btn-danger btn-sm">Delete</button>
+                                    <button (click)="openModalUpdate(team)" class="btn btn-square btn-primary btn-sm">Update</button>
+                                    <button (click)="delete(team)" class="btn btn-square btn-danger btn-sm">Delete</button>
                                 </td>
                             </tr>
                         </tbody>
@@ -27,7 +27,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Create new Team</h4>
+                <h4 class="modal-title">{{title}}</h4>
                 <button type="button" class="close" (click)="modalCreate.hide()" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -41,7 +41,25 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-square btn-secondary" (click)="modalCreate.hide()">Close</button>
-                <button type="button" class="btn btn-square btn-primary" (click)="create()">Create</button>
+                <button type="button" class="btn btn-square btn-primary" (click)="save()">{{title}}</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div bsModal #memberExist="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">For delete this team.
+                    <p>Please remove all member on the team !</p>
+                </h4>
+                <button type="button" class="close" (click)="memberExist.hide()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-square btn-primary" (click)="memberExist.hide()">Ok</button>
             </div>
         </div>
     </div>

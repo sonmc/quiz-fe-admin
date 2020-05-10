@@ -9,6 +9,10 @@
                             <tr *ngFor="let o of d.objectives" (click)="goKrList(o.objectiveId)">
                                 <td>{{o.objectiveName}}</td>
                                 <td>{{o.description}}</td>
+                                <td>
+                                    <button (click)="openModalUpdate(o)" class="btn btn-square btn-primary btn-sm">Update</button>
+                                    <button (click)="remove(o.objectiveId)" class="btn btn-square btn-danger btn-sm">Delete</button>
+                                </td>
                             </tr>
                         </tbody>
                     </table>

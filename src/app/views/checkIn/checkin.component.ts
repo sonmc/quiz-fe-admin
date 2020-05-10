@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { SUCCESS_STATUS } from '../../containers/constants/config';
-import { CheckInService } from '../../containers/services/checkin/checkin.service';
+import { SUCCESS_STATUS } from '../../containers/constants/config'; 
+import { ObjectiveService } from '../../containers/services/objective/objective.service';
+import { KrService } from '../../containers/services/kr/kr.service';
 
 @Component({
   templateUrl: 'checkin.component.html',
@@ -10,12 +11,12 @@ import { CheckInService } from '../../containers/services/checkin/checkin.servic
 export class CheckInComponent implements OnInit {
   datas: any;
 
-  constructor(public service: CheckInService) {
+  constructor(public oService: ObjectiveService, public krService: KrService) {
   }
 
   ngOnInit(): void {
     var branchId = 1;
-    this.service.get(branchId)
+    this.oService.getCheckin(branchId)
       .then(res => {
         if (SUCCESS_STATUS == res['status']) {
           this.datas = res['data'];
@@ -44,7 +45,7 @@ export class CheckInComponent implements OnInit {
     }
   }
   hideEditer = (kr, w) => {
-    this.service.checkin(kr.krId, w.weekId, w.value)
+    this.krService.checkin(kr.krId, w.weekId, w.value)
       .then(res => {
         if (SUCCESS_STATUS == res['status']) {
           for (let i = 0; i < this.datas.length; i++) {

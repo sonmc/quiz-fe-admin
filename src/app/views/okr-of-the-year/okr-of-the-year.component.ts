@@ -1,7 +1,7 @@
 
 import { Component, OnInit } from '@angular/core';
-import { SUCCESS_STATUS } from '../../containers/constants/config';
-import { OkrOfYearService } from '../../containers/services/okrOfYear/okr-of-year.service';
+import { SUCCESS_STATUS } from '../../containers/constants/config'; 
+import { OkrService } from '../../containers/services/okr/okr.service';
 var $: any;
 
 @Component({
@@ -21,12 +21,12 @@ export class OkrOfYearComponent implements OnInit {
   objEdited: Boolean = false;
   dateNow = new Date();
   year: Number;
-  constructor(public service: OkrOfYearService) {
+  constructor(public service: OkrService) {
     this.year = this.dateNow.getFullYear();
   }
   ngOnInit() {
     let branchId = 1;
-    this.service.get(branchId)
+    this.service.getOkrYear(branchId)
       .then(res => {
         if (SUCCESS_STATUS == res['status']) {
           this.data = res['data'];

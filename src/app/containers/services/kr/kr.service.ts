@@ -47,7 +47,7 @@ export class KrService {
             })
         })
     }
-    create = (kr: Object): Promise<Object> => {
+    create = (kr): Promise<Object> => {
         return new Promise((resolve, reject) => {
             let url = `${API_URL}kr/create`;
             debugger
@@ -59,10 +59,32 @@ export class KrService {
                 })
         })
     }
-    update = (kr: Object): Promise<Object> => {
+    update = (kr): Promise<Object> => {
         return new Promise((resolve, reject) => {
             let url = `${API_URL}kr/update`;
             this.apiService.postWithToken(url, kr)
+                .subscribe(res => {
+                    resolve(res);
+                }, err => {
+                    reject(err);
+                })
+        })
+    }
+    delete = (krId): Promise<Object> => {
+        return new Promise((resolve, reject) => {
+            let url = `${API_URL}kr/delete?krId=${krId}`;
+            this.apiService.getWithToken(url)
+                .subscribe(res => {
+                    resolve(res);
+                }, err => {
+                    reject(err);
+                })
+        })
+    }
+    checkin = (krId, weekId, weekValue) => {
+        return new Promise((resolve, reject) => {
+            let url = `${API_URL}kr/checkin?krId=${krId}&weekId=${weekId}&weekValue=${weekValue}`;
+            this.apiService.getWithToken(url)
                 .subscribe(res => {
                     resolve(res);
                 }, err => {

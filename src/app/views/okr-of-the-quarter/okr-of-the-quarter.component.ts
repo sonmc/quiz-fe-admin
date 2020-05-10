@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { SUCCESS_STATUS } from '../../containers/constants/config';
-import { OkrQuarterService } from '../../containers/services/okrOfQuarter/okr-of-quarter.service';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { Router } from '@angular/router';
+import { OkrService } from '../../containers/services/okr/okr.service';
+import { ObjectiveService } from '../../containers/services/objective/objective.service';
 
 @Component({
   templateUrl: 'okr-of-the-quarter.component.html'
@@ -20,11 +21,11 @@ export class OkrOfQuarterComponent implements OnInit {
     quarter: 0
   }
   datas: any;
-  constructor(public service: OkrQuarterService, public router: Router) {
+  constructor(public service: OkrService, public objectiveService: ObjectiveService, public router: Router) {
   }
 
   ngOnInit(): void {
-    this.service.get()
+    this.service.getOkrQuarter()
       .then(res => {
         if (SUCCESS_STATUS == res['status']) {
           this.datas = res['data'];
@@ -39,7 +40,7 @@ export class OkrOfQuarterComponent implements OnInit {
   }
   create = () => {
     this.objective["quarter"] = this.quarterId;
-    this.service.create(this.objective)
+    this.objectiveService.create(this.objective)
       .then(res => {
         if (res['status'] == SUCCESS_STATUS) {
           for (let index = 0; index < this.datas.length; index++) {
@@ -60,6 +61,6 @@ export class OkrOfQuarterComponent implements OnInit {
     this.modalCreate.show()
   }
   goKrList = (objectiveId) => {
-    this.router.navigate(['/kr', objectiveId]);
+    this.router.navigate(['/o-detail', objectiveId]);
   }
 }

@@ -4,6 +4,7 @@ import { MyOkrComponent } from './my-okr.component';
 import { CommonModule } from '@angular/common';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { FormsModule } from '@angular/forms';
+import { ObjectiveComponent } from '../objective/objective.component';
 
 
 @NgModule({
@@ -13,6 +14,6 @@ import { FormsModule } from '@angular/forms';
     FormsModule,
     ModalModule.forRoot()
   ],
-  declarations: [MyOkrComponent]
+  declarations: [MyOkrComponent, ObjectiveComponent]
 })
 export class MyOkrModule { }

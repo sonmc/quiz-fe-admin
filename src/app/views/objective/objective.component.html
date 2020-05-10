@@ -1,22 +1,20 @@
-<div class="animated fadeIn">
-    <div class="card">
-        <div class="card-header"><b>Objectives</b></div>
-        <span style="margin-left: 20px;font-style: italic;margin-top: 20px;"><a href="javascript:;"  (click)="openModalCreate()">Create new</a></span>
-        <div class="card-body">
-            <table class="table table-hover">
-                <tbody>
-                    <tr *ngFor="let ob of objectives">
-                        <td><a href="javascript:;" (click)="goKrList(ob.objectiveId, ob.teamId)">{{ob.objectiveName}}</a></td>
-                        <td>{{ob.description}}</td>
-                        <td>
-                            <button (click)="openModalUpdate(ob)" class="btn btn-square btn-primary btn-sm">Update</button>
-                            <button (click)="remove(ob.objectiveId)" class="btn btn-square btn-danger btn-sm">Delete</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <a href="javascript:;" (click)="back()">Back</a>
-        </div>
+<div class="card">
+    <div class="card-header"><b>Objectives</b></div>
+    <span style="margin-left: 20px;font-style: italic;margin-top: 20px;"><a href="javascript:;"  (click)="openModalCreate()">Create new</a></span>
+    <div class="card-body">
+        <table class="table table-hover">
+            <tbody>
+                <tr *ngFor="let ob of objectives">
+                    <td><a href="javascript:;" (click)="goKrList(ob.objectiveId, ob.teamId)">{{ob.objectiveName}}</a></td>
+                    <td>{{ob.description}}</td>
+                    <td>
+                        <button (click)="openModalUpdate(ob)" class="btn btn-square btn-primary btn-sm">Update</button>
+                        <button (click)="remove(ob.objectiveId)" class="btn btn-square btn-danger btn-sm">Delete</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <a href="javascript:;" (click)="back()">Back</a>
     </div>
 </div>
 
@@ -41,7 +39,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-square btn-secondary" (click)="modalCreate.hide()">Close</button>
-                <button type="button" class="btn btn-square btn-primary" (click)="create()">{{title}}</button>
+                <button type="button" class="btn btn-square btn-primary" (click)="save()">{{title}}</button>
             </div>
         </div>
     </div>

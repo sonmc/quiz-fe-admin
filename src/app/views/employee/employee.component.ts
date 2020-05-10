@@ -46,7 +46,24 @@ export class EmployeeComponent implements OnInit {
   openModalCreate = () => {
     this.modalCreate.show()
   }
+  openUpdateModal = (emp) => {
+
+  }
   goOList = (empId) => {
     this.router.navigate(['/objective', empId]);
+  }
+  deactive = (id) => {
+    this.userService.deactive(id)
+      .then(res => {
+        if (res['status'] == SUCCESS_STATUS) {
+          for (let index = 0; index < this.employees.length; index++) {
+            if (this.employees[index].employeeId == id) {
+              this.employees.splice(index, 1);
+            }
+          }
+        }
+      }).catch(e => {
+        window.alert('Connection Error !');
+      })
   }
 }

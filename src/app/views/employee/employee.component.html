@@ -23,8 +23,8 @@
                                 <td>{{emp.phoneNumber}}</td>
                                 <td>{{emp.address}}</td>
                                 <td>
-                                    <button class="btn btn-square btn-primary btn-sm">Update</button>
-                                    <button class="btn btn-square btn-danger btn-sm">Deactive</button>
+                                    <button (click)="openUpdateModal(emp)" class="btn btn-square btn-primary btn-sm">Update</button>
+                                    <button (click)="deactive(emp.employeeId)" class="btn btn-square btn-danger btn-sm">Deactive</button>
                                 </td>
                             </tr>
                         </tbody>
@@ -38,7 +38,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Create objective</h4>
+                <h4 class="modal-title">Create new</h4>
                 <button type="button" class="close" (click)="modalCreate.hide()" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>

@@ -1,40 +1,27 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MyOkrService } from '../../containers/services/myOkr/my-okr.service';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { SUCCESS_STATUS } from '../../containers/constants/config';
 import { AuthService } from '../../containers/services/auth/auth.service';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { Router } from '@angular/router';
+import { ObjectiveService } from '../../containers/services/objective/objective.service';
 
 @Component({
   selector: 'app-objective',
   templateUrl: 'objective.component.html'
 })
 export class ObjectiveComponent implements OnInit {
+  @Input() objectives: any;
   @ViewChild('modalCreate') modalCreate: ModalDirective;
   title: String = "Create";
-  objectives: any;
   objective: Object = {
     objectiveName: "",
     description: "",
     employeeId: 0
   }
   currentUser: any;
-  constructor(public myOkrService: MyOkrService, public authService: AuthService, public router: Router) { }
+  constructor(public objectiveService: ObjectiveService, public authService: AuthService, public router: Router) { }
   ngOnInit(): void {
-    this.currentUser = this.authService.getLocal();
-    var myOkr = {
-      employeeId: this.currentUser.employeeId,
-      branchId: 0,
-      teamId: 0
-    }
-    this.myOkrService.get(myOkr)
-      .then(res => {
-        if (SUCCESS_STATUS == res['status']) {
-          this.objectives = res['data'];
-        }
-      }).catch(e => {
-        window.alert('Connection Error !');
-      })
+     
   }
   openModalCreate = () => {
     this.title = "Create";
@@ -50,11 +37,11 @@ export class ObjectiveComponent implements OnInit {
     this.objective = objective;
     this.modalCreate.show()
   }
-  create = () => {
+  save = () => {
     this.objective['employeeId'] = this.currentUser.employeeId;
-
+    debugger
     if (this.title == "Create") {
-      this.myOkrService.create(this.objective)
+      this.objectiveService.create(this.objective)
         .then(res => {
           if (res['status'] == SUCCESS_STATUS) {
             this.objectives.push(res['data']);
@@ -64,7 +51,7 @@ export class ObjectiveComponent implements OnInit {
           window.alert('Connection Error !');
         })
     } else {
-      this.myOkrService.update(this.objective)
+      this.objectiveService.update(this.objective)
         .then(res => {
           if (res['status'] == SUCCESS_STATUS) {
             this.modalCreate.hide();
@@ -76,7 +63,7 @@ export class ObjectiveComponent implements OnInit {
 
   }
   remove = (objectiveId) => {
-    this.myOkrService.remove(objectiveId)
+    this.objectiveService.remove(objectiveId)
       .then(res => {
         if (res['status'] == SUCCESS_STATUS) {
           for (let index = 0; index < this.objectives.length; index++) {
@@ -92,7 +79,7 @@ export class ObjectiveComponent implements OnInit {
   }
 
   goKrList = (objectiveId) => {
-    this.router.navigate(['/kr', objectiveId]);
+    this.router.navigate(['/o-detail', objectiveId]);
   }
   back = () => {
     window.history.back();

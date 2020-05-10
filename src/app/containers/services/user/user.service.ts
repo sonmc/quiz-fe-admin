@@ -40,4 +40,16 @@ export class UserService {
       })
     })
   }
+
+  deactive = (id): Promise<Object> => {
+    return new Promise((resolve, reject) => {
+      let url = `${API_URL}user/deactive?id=${id}`;
+      this.apiService.getWithToken(url).subscribe(res => {
+        resolve(res);
+      }, err => {
+        reject(err);
+      })
+    })
+  }
+
 }

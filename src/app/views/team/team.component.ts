@@ -9,8 +9,10 @@ import { Router } from '@angular/router';
 })
 
 export class TeamComponent {
+  @ViewChild('memberExist') memberExist: ModalDirective;
   @ViewChild('modalCreate') modalCreate: ModalDirective;
   teams: any;
+  title: String = "Create";
   departments: any;
   team: Object = {
     teamId: 0,
@@ -34,36 +36,64 @@ export class TeamComponent {
       })
   }
 
-  create = () => {
+  save = () => {
     this.team["branchId"] = parseInt(this.team["branchId"]);
-    this.teamService.create(this.team)
-      .then(res => {
-        if (res['status'] == SUCCESS_STATUS) {
-          this.teams.push(res['data']);
-          this.modalCreate.hide();
-        }
-      }).catch(e => {
-        window.alert('Connection Error !');
-      })
+    if (this.title == "Create") {
+      this.teamService.create(this.team)
+        .then(res => {
+          if (res['status'] == SUCCESS_STATUS) {
+            this.teams.push(res['data']);
+            this.modalCreate.hide();
+          }
+        }).catch(e => {
+          window.alert('Connection Error !');
+        })
+    } else {
+      this.teamService.update(this.team)
+        .then(res => {
+          if (res['status'] == SUCCESS_STATUS) {
+            for (let index = 0; index < this.teams.length; index++) {
+              if (this.teams[index].teamId == this.team["teamId"]) {
+                this.teams[index] = this.team;
+              }
+            }
+            this.modalCreate.hide();
+          }
+        }).catch(e => {
+          window.alert('Connection Error !');
+        })
+    }
   }
-  delete = (teamId) => {
-    this.teamService.delete(teamId)
-      .then(res => {
-        if (res['status'] == SUCCESS_STATUS) {
-          for (let index = 0; index < this.teams.length; index++) {
-            if (this.teams[index].teamId == teamId) {
-              this.teams.splice(index, 1);
+  delete = (team) => {
+    if (team.members.length == 0) {
+      this.teamService.delete(team.teamId)
+        .then(res => {
+          if (res['status'] == SUCCESS_STATUS) {
+            for (let index = 0; index < this.teams.length; index++) {
+              if (this.teams[index].teamId == team.teamId) {
+                this.teams.splice(index, 1);
+              }
             }
           }
-        }
-      }).catch(e => {
-        window.alert('Connection Error !');
-      })
-  }
-  openModalCreate = () => {
-    this.modalCreate.show()
+        }).catch(e => {
+          window.alert('Connection Error !');
+        })
+    } else {
+      this.memberExist.show();
+    }
+
   }
 
+  openModalCreate = () => {
+    this.title = "Create";
+    this.modalCreate.show();
+  }
+
+  openModalUpdate = (team) => {
+    this.title = "Update";
+    this.team = Object.assign({}, team);
+    this.modalCreate.show();
+  }
   goEmployee = (teamId) => {
     this.router.navigate(['/teamDetail', teamId]);
   }

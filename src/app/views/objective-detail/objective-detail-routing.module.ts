@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router'; 
-import { KrComponent } from './kr.component';
+import { ObjectiveDetailComponent } from './objective-detail.component';
  
 
 const routes: Routes = [
   {
     path: '',
-    component: KrComponent,
+    component: ObjectiveDetailComponent,
     data: {
       title: 'Okr Of The Quarter'
     }

@@ -47,14 +47,14 @@ export const routes: Routes = [
         path: 'okr-teaching',
         loadChildren: () => import('./views/okr-teaching/okr-teaching.module').then(m => m.OkrTeachingModule)
       }, {
-        path: 'kr/:id',
-        loadChildren: () => import('./views/kr/kr.module').then(m => m.KRModule)
+        path: 'o-detail/:id',
+        loadChildren: () => import('./views/objective-detail/objective-detail.module').then(m => m.ObjectiveDetailModule)
       }, {
         path: 'checkin',
         loadChildren: () => import('./views/checkIn/checkin.module').then(m => m.CheckInModule)
       }, {
         path: 'objective/:teamId',
-        loadChildren: () => import('./views/objective/objective.module').then(m => m.ObjectiveModule)
+        loadChildren: () => import('./views/objective/objective.component').then(m => m.ObjectiveComponent)
       }, {
         path: 'plan/:krId',
         loadChildren: () => import('./views/plan/plan.module').then(m => m.PlanModule)
