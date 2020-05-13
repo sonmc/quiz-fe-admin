@@ -7,9 +7,6 @@ import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 
 import { AppComponent } from './app.component';
 
-// Import containers 
-
-
 import {
   AppAsideModule,
   AppBreadcrumbModule,
@@ -27,7 +24,7 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { LayoutComponent } from './views/layout/layout.component';
 import { LoginComponent } from './views/login/login.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http'; 
+import { HttpClientModule } from '@angular/common/http';  
 
 
 @NgModule({

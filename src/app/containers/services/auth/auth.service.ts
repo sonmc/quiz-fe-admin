@@ -31,9 +31,9 @@ export class AuthService {
   }
 
   isLogin = () => {
-    let user = this.localStorageService.get('employee');
+    let user = this.localStorageService.get('employee'); 
     if (user && typeof user === 'object') {
-      return user['_id'] && user['username'] && user['token'];
+      return user['employeeId'] && user['userName'] && user['token'];
     }
     return false;
   }

@@ -21,7 +21,7 @@ export class ObjectiveComponent implements OnInit {
   currentUser: any;
   constructor(public objectiveService: ObjectiveService, public authService: AuthService, public router: Router) { }
   ngOnInit(): void {
-     
+     console.log(this.objectives); 
   }
   openModalCreate = () => {
     this.title = "Create";
@@ -39,7 +39,6 @@ export class ObjectiveComponent implements OnInit {
   }
   save = () => {
     this.objective['employeeId'] = this.currentUser.employeeId;
-    debugger
     if (this.title == "Create") {
       this.objectiveService.create(this.objective)
         .then(res => {
@@ -78,8 +77,8 @@ export class ObjectiveComponent implements OnInit {
       })
   }
 
-  goKrList = (objectiveId) => {
-    this.router.navigate(['/o-detail', objectiveId]);
+  goKrList = (objective) => {
+    this.router.navigate(['/o-detail', objective.objectiveId,objective.objectiveName]);
   }
   back = () => {
     window.history.back();

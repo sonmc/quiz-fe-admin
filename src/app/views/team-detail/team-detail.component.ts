@@ -15,6 +15,7 @@ export class TeamDetailComponent implements OnInit {
     objectives: any;
     employee: Object;
     teamId: Number;
+    teamName: String = "";
     branchId: Number;
     objective: Object = {};
     title: string = "Create";
@@ -24,7 +25,8 @@ export class TeamDetailComponent implements OnInit {
         public teamService: TeamService,
         public objectiveService: ObjectiveService
     ) {
-        this.teamId = parseInt(this.actRoute.snapshot.params.teamId);
+        this.teamId = parseInt(this.actRoute.snapshot.params.id);
+        this.teamName = this.actRoute.snapshot.params.name;
         this.branchId = 1;
     }
 
@@ -80,35 +82,5 @@ export class TeamDetailComponent implements OnInit {
     }
     back = () => {
         window.history.back();
-    }
-    save = () => {
-        if (this.title == "Create") {
-            this.objectiveService.create(this.objective)
-                .then(res => {
-                    if (res['status'] == SUCCESS_STATUS) {
-                        for (let index = 0; index < this.employees.length; index++) {
-                            if (this.employees[index].employeeId == this.objective) {
-                                this.employees.splice(index, 1);
-                            }
-                        }
-                    }
-                }).catch(e => {
-                    window.alert('Connection Error !');
-                })
-        } else {
-            this.objectiveService.update(this.teamId)
-                .then(res => {
-                    if (res['status'] == SUCCESS_STATUS) {
-                        for (let index = 0; index < this.employees.length; index++) {
-                            if (this.employees[index].employeeId == this.objective) {
-                                this.employees.splice(index, 1);
-                            }
-                        }
-                    }
-                }).catch(e => {
-                    window.alert('Connection Error !');
-                })
-        }
-
     }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { SUCCESS_STATUS } from '../../containers/constants/config'; 
+import { SUCCESS_STATUS } from '../../containers/constants/config';
 import { ObjectiveService } from '../../containers/services/objective/objective.service';
 import { KrService } from '../../containers/services/kr/kr.service';
 
@@ -28,7 +28,7 @@ export class CheckInComponent implements OnInit {
           }
         }
       }).catch(e => {
-        // window.alert('Connection Error !');
+        window.alert('Connection Error !');
       })
   }
   openEditer = (krId, week) => {
@@ -47,17 +47,18 @@ export class CheckInComponent implements OnInit {
   hideEditer = (kr, w) => {
     this.krService.checkin(kr.krId, w.weekId, w.value)
       .then(res => {
-        if (SUCCESS_STATUS == res['status']) {
-          for (let i = 0; i < this.datas.length; i++) {
-            for (let index = 0; index < this.datas[i].krs.length; index++) {
-              for (let j = 0; j < this.datas[i].krs[index].weeks.length; j++) {
-                this.datas[i].krs[index].weeks[j].isEdit = false;
-              }
-            }
-          }
+        if (!res['data']) {
+          location.reload();
         }
       }).catch(e => {
         window.alert('Connection Error !');
       })
+    for (let i = 0; i < this.datas.length; i++) {
+      for (let index = 0; index < this.datas[i].krs.length; index++) {
+        for (let j = 0; j < this.datas[i].krs[index].weeks.length; j++) {
+          this.datas[i].krs[index].weeks[j].isEdit = false;
+        }
+      }
+    }
   }
 }

@@ -10,10 +10,10 @@ import { CommonModule } from '@angular/common';
 @NgModule({
   imports: [
     KrRoutingModule,
-    TabsModule,
-    ModalModule, 
+    TabsModule, 
     FormsModule,
-    CommonModule
+    CommonModule,
+    ModalModule.forRoot()
   ],
   declarations: [ObjectiveDetailComponent, DodComponent, KeyResultComponent]
 })

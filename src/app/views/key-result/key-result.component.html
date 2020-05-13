@@ -1,37 +1,35 @@
-<div class="card">
-    <span style="margin-left: 20px;font-style: italic;margin-top: 20px;"><a (click)="openModalCreate()" href="javascript:;">Create new</a></span>
-    <div class="card-body">
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th>Content</th>
-                    <th>Owner</th>
-                    <th>Target Value</th>
-                    <th>Start Date</th>
-                    <th>End Date</th>
-                </tr>
-            </thead>
-            <tbody *ngIf="isNoDataKr">
-                <tr *ngFor="let kr of krs">
-                    <td><a href="javascript:;" (click)="goListPlan(kr.krId)">{{kr.description}}</a></td>
-                    <td>{{kr.employeeId}}</td>
-                    <td>{{kr.targetValue}}</td>
-                    <td>{{kr.startDate}}</td>
-                    <td>{{kr.endDate}}</td>
-                    <td>
-                        <button (click)="openModalEdit(kr)" class="btn btn-square btn-primary btn-sm">Update</button>
-                        <button (click)="delete(kr.krId)" class="btn btn-square btn-danger btn-sm">Delete</button>
-                    </td>
-                </tr>
-            </tbody>
-            <tbody *ngIf="!isNoDataKr">
-                <tr style="color:red">
-                    <td>No data result !</td>
-                </tr>
-            </tbody>
-        </table>
-        <a href="javascript:;" (click)="back()">Back</a>
-    </div>
+<span style="margin-left: 20px;font-style: italic;margin-top: 20px;"><a (click)="openModalCreate()" href="javascript:;">Create new</a></span>
+<div class="card-body">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Content</th>
+                <th>Owner</th>
+                <th>Target Value</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+            </tr>
+        </thead>
+        <tbody *ngIf="isNoData">
+            <tr *ngFor="let kr of krs">
+                <td><a href="javascript:;" (click)="goListPlan(kr.krId)">{{kr.description}}</a></td>
+                <td>{{kr.employeeId}}</td>
+                <td>{{kr.targetValue}}</td>
+                <td>{{kr.startDate}}</td>
+                <td>{{kr.endDate}}</td>
+                <td>
+                    <button (click)="openModalEdit(kr)" class="btn btn-square btn-primary btn-sm">Update</button>
+                    <button (click)="delete(kr.krId)" class="btn btn-square btn-danger btn-sm">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+        <tbody *ngIf="!isNoData">
+            <tr style="color:red">
+                <td>No data result !</td>
+            </tr>
+        </tbody>
+    </table>
+    <a href="javascript:;" (click)="back()">Back</a>
 </div>
 <div bsModal #modalCreate="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">

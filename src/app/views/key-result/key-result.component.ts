@@ -1,8 +1,10 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild, OnInit } from '@angular/core';
 import { KrService } from '../../containers/services/kr/kr.service';
 import { Router } from '@angular/router';
 import { SUCCESS_STATUS } from '../../containers/constants/config';
 import { ModalDirective } from 'ngx-bootstrap/modal';
+import { DoDService } from '../../containers/services/dod/dod.service';
+
 
 @Component({
   selector: 'app-key-result',
@@ -11,7 +13,9 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 })
 export class KeyResultComponent implements OnInit {
   @ViewChild('modalCreate') modalCreate: ModalDirective;
-  @Input() krs: any;
+
+  @Input() objectiveId: Number;
+  krs: any = [];
   isNoData: boolean = false;
   kr: Object = {
     krId: 0,
@@ -26,14 +30,37 @@ export class KeyResultComponent implements OnInit {
     employeeId: 0,
     weeks: []
   };
-  objectiveId: number = 0;
   title: string = "Create";
-  constructor(public service: KrService, public router: Router) {
+  constructor(public service: KrService, public router: Router, public dodService: DoDService) {
 
   }
-
   ngOnInit(): void {
+    if (this.objectiveId) {
+      this.getKr(this.objectiveId);
+    }
   }
+
+  getKr(objectiveId) {
+    var data = {
+      objectiveId: objectiveId,
+      employeeId: 0
+    }
+    this.service.get(data)
+      .then(res => {
+        if (SUCCESS_STATUS == res['status']) {
+          this.krs = res['data'];
+          if (this.krs.length > 0) {
+            this.isNoData = true;
+          } else {
+            this.isNoData = false;
+          }
+        }
+      }).catch(e => {
+        window.alert('Connection Error !');
+      })
+    return this.krs;
+  }
+
   save = () => {
     this.kr["employeeId"] = parseInt(this.kr["employeeId"]);
     this.kr["objectiveId"] = this.objectiveId;
@@ -89,7 +116,7 @@ export class KeyResultComponent implements OnInit {
     this.kr = {
       krId: 0,
       description: "",
-      objectiveId: 0,
+      objectiveId: this.objectiveId,
       measurement: "",
       baseValue: "",
       targetValue: "",
@@ -105,5 +132,5 @@ export class KeyResultComponent implements OnInit {
   }
   goListPlan = (krId) => {
     this.router.navigate(['/plan', krId]);
-  } 
+  }
 }

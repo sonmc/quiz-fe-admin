@@ -8,7 +8,7 @@
                     <table class="table table-hover">
                         <tbody>
                             <tr *ngFor="let team of teams">
-                                <td><a href="javascript:;" (click)="goEmployee(team.teamId)">{{team.teamName}}</a></td>
+                                <td><a href="javascript:;" (click)="goDetailPage(team)">{{team.teamName}}</a></td>
                                 <td>members: {{team.members.length}}</td>
                                 <td>
                                     <button (click)="openModalUpdate(team)" class="btn btn-square btn-primary btn-sm">Update</button>

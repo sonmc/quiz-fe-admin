@@ -10,20 +10,33 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 })
 export class DodComponent implements OnInit {
   @ViewChild('modalCreate') modalCreate: ModalDirective;
-  @Input() dods: any;
+  @Input() objectiveId: Number;
   title: string = "Create";
+  dods: any = [];
   dod: Object = {
     dodId: 0,
     content: "",
     objectiveId: 0
   }
   isNoData: boolean = false;
-  objectiveId: number = 0;
-  constructor(public dodService: DoDService) {
-
+  constructor(public dodService: DoDService) { }
+  ngOnInit() {
+    if (this.objectiveId) {
+      this.getDod(this.objectiveId);
+    }
   }
+  getDod(objectiveId) {
+    this.dodService.get(objectiveId)
+      .then(res => {
+        if (SUCCESS_STATUS == res['status']) {
+          this.dods = res['data'];
+          this.checkLength(this.dods);
+        }
 
-  ngOnInit(): void {
+      }).catch(e => {
+        window.alert('Connection Error !');
+      })
+    return this.dods;
   }
   deleteDod = (dodId) => {
     this.dodService.delete(dodId)
@@ -34,17 +47,13 @@ export class DodComponent implements OnInit {
               this.dods.splice(index, 1);
             }
           }
-          if (this.dods.length > 0) {
-            this.isNoData = true;
-          } else {
-            this.isNoData = false;
-          }
+          this.checkLength(this.dods);
         }
       }).catch(e => {
         window.alert('Connection Error !');
       })
   }
-  openModalCreateDod = () => {
+  openModalCreate = () => {
     this.dod = {
       dodId: 0,
       content: "",
@@ -58,15 +67,21 @@ export class DodComponent implements OnInit {
       .then(res => {
         if (SUCCESS_STATUS == res['status']) {
           this.dods.push(res['data']);
-          if (this.dods.length > 0) {
-            this.isNoData = true;
-          } else {
-            this.isNoData = false;
-          }
+          this.checkLength(this.dods);
         }
         this.modalCreate.hide();
       }).catch(e => {
         window.alert('Connection Error !');
       })
+  }
+  checkLength(dods) {
+    if (dods.length > 0) {
+      this.isNoData = true;
+    } else {
+      this.isNoData = false;
+    }
+  }
+  back(){
+    window.history.back();
   }
 }

@@ -3,14 +3,14 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { TeamRoutingModule } from './team-routing.module';
 import { TeamComponent } from './team.component';
-import { ModalModule } from 'ngx-bootstrap/modal'; 
+import { ModalModule } from 'ngx-bootstrap/modal';  
 
 
 @NgModule({
   imports: [
     TeamRoutingModule,
     CommonModule,
-    FormsModule, 
+    FormsModule,  
     ModalModule.forRoot()
   ],
   declarations: [TeamComponent]

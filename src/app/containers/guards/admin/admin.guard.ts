@@ -13,9 +13,8 @@ export class AdminGuard implements CanActivate {
   canActivate() {
     if (this.authService.isLogin()) {
       return true;
-    }
-
-    this.router.navigate(['/dang-nhap']);
+    } 
+    this.router.navigate(['/login']);
     return false;
   }
 }

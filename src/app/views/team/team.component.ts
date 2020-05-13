@@ -94,7 +94,7 @@ export class TeamComponent {
     this.team = Object.assign({}, team);
     this.modalCreate.show();
   }
-  goEmployee = (teamId) => {
-    this.router.navigate(['/teamDetail', teamId]);
+  goDetailPage = (team) => {
+    this.router.navigate(['/teamDetail', team.teamId, team.teamName]);
   }
 }
