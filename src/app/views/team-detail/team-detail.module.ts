@@ -6,7 +6,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { TeamDetailComponent } from './team-detail.component';
 import { TabsModule } from 'ngx-bootstrap/tabs'; 
 import { ObjectiveModule } from '../objective/objective.module'; 
-
+import { LSelect2Module } from 'ngx-select2';
 @NgModule({
   imports: [
     TeamDetailRoutingModule,
@@ -14,6 +14,7 @@ import { ObjectiveModule } from '../objective/objective.module';
     TabsModule,
     FormsModule, 
     ObjectiveModule,
+    LSelect2Module,
     ModalModule.forRoot()
   ],
   declarations: [TeamDetailComponent]

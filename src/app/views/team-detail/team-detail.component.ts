@@ -3,12 +3,13 @@ import { UserService } from '../../containers/services/user/user.service';
 import { SUCCESS_STATUS } from '../../containers/constants/config';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TeamService } from '../../containers/services/team/team.service';
-import { ToastrService } from 'ngx-toastr'; 
+import { ToastrService } from 'ngx-toastr';
 @Component({
     templateUrl: 'team-detail.component.html'
 })
-export class TeamDetailComponent implements OnInit { 
+export class TeamDetailComponent implements OnInit {
     employees: any;
+    users: any;
     objectives: any;
     employee: Object;
     teamId: Number;
@@ -17,11 +18,12 @@ export class TeamDetailComponent implements OnInit {
     branchId: Number;
     objective: Object = {};
     title: string = "Create";
-    taxes: Array<any>;
-    selectedTax: any;
+    allUser: Array<any> = [];
+    dataSelected: any = [];
+    isAddMember: Boolean = true;
     options: any = {
         multiple: true
-      };
+    };
     constructor(public userService: UserService,
         private actRoute: ActivatedRoute,
         public router: Router,
@@ -36,12 +38,23 @@ export class TeamDetailComponent implements OnInit {
     ngOnInit(): void {
         this.getTeamMember();
         this.getObjOfTeam();
-        this.taxes = [
-            { id: 'a1', text: 'a1', value: 'a1', flag: 'a' },
-            { id: 'a2', text: 'a2', value: 'a2', flag: 'a' },
-            { id: 'b1', text: 'b1', value: 'b1', flag: 'b' },
-            { id: 'b2', text: 'b2', value: 'b2', flag: 'b' }
-        ]
+        this.getAllUser();
+
+    }
+    getAllUser = () => {
+        this.userService.get(0, this.branchId)
+            .then(res => {
+                if (SUCCESS_STATUS == res['status']) {
+                    let users = res["data"];
+                    for (let index = 0; index < users.length; index++) {
+                        let id = users[index].employeeId;
+                        let userName = users[index].userName;
+                        this.allUser.push({ id: id, text: userName, value: userName });
+                    }
+                }
+            }).catch(e => {
+                window.alert('Connection Error !');
+            })
     }
     getTeamMember = () => {
         this.teamService.getTeamMember(this.teamId)
@@ -98,5 +111,12 @@ export class TeamDetailComponent implements OnInit {
         } else {
             this.objectives.push(data.objective);
         }
+    }
+    addMember = () => {
+        this.isAddMember = !this.isAddMember;
+    }
+    cancel = () => {
+        this.dataSelected = [];
+        this.isAddMember = !this.isAddMember;
     }
 }
