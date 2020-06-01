@@ -3,8 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { FormsModule } from '@angular/forms';
 import { ObjectiveComponent } from '../objective/objective.component';
-import { TabsModule } from 'ngx-bootstrap/tabs';
-
+import { TabsModule } from 'ngx-bootstrap/tabs';  
 
 @NgModule({
     imports: [

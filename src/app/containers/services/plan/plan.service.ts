@@ -33,7 +33,7 @@ export class PlanService {
                 })
         })
     }
-    update = (plan: Object): Promise<Object> => {
+    update = (plan): Promise<Object> => {
         return new Promise((resolve, reject) => {
             let url = `${API_URL}plan/update`;
             this.apiService.postWithToken(url, plan)

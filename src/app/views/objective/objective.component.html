@@ -1,3 +1,6 @@
+<p style="margin-left: 20px;font-style: italic;margin-top: 20px;">
+    <a href="javascript:;" (click)="openModalCreate()">Create new</a>
+</p>
 <div class="card-body">
     <table class="table table-hover">
         <tbody>
@@ -27,8 +30,35 @@
                     <div class="form-group">
                         <input type="name" [(ngModel)]="objective.objectiveName" name="name" class="form-control" placeholder="Objective">
                     </div>
+                    <div class="form-group" *ngIf="type==2">
+                        <select class="form-control" name="teamName" [(ngModel)]="objective.teamId">
+                            <option *ngFor="let team of teams" [selected]="team.teamId==objective.teamId" [value]="team.teamId" >
+                                {{team.teamName}}
+                            </option>
+                        </select>
+                    </div>
                     <div class="form-group">
                         <textarea type="name" [(ngModel)]="objective.description" name="teamname" class="form-control" placeholder="Description"></textarea>
+                    </div>
+                    <div class="form-group" *ngIf="type==1">
+                        <form class="form-inline">
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="customRadio1" (change)="onItemChange(1)" name="customRadio" class="custom-control-input">
+                                <label class="custom-control-label" for="customRadio1">Quý I</label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="customRadio2" (change)="onItemChange(2)" name="customRadio" class="custom-control-input">
+                                <label class="custom-control-label" for="customRadio2">Quý II</label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="customRadio3" (change)="onItemChange(3)" name="customRadio" class="custom-control-input">
+                                <label class="custom-control-label" for="customRadio3">Quý III</label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input type="radio" id="customRadio4" (change)="onItemChange(4)" name="customRadio" class="custom-control-input">
+                                <label class="custom-control-label" for="customRadio4">Quý IV</label>
+                            </div>
+                        </form>
                     </div>
                 </form>
             </div>

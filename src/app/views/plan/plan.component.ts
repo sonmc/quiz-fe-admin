@@ -3,6 +3,7 @@ import { SUCCESS_STATUS } from '../../containers/constants/config';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { ActivatedRoute } from '@angular/router';
 import { PlanService } from '../../containers/services/plan/plan.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-plan',
@@ -22,7 +23,7 @@ export class PlanComponent implements OnInit {
     planId: 0,
     startDate: ""
   };
-  constructor(public service: PlanService, private actRoute: ActivatedRoute) {
+  constructor(public service: PlanService, private actRoute: ActivatedRoute, public toastr: ToastrService) {
     this.krId = parseInt(this.actRoute.snapshot.params.krId);
   }
 
@@ -35,6 +36,7 @@ export class PlanComponent implements OnInit {
       this.service.create(this.plan)
         .then(res => {
           if (SUCCESS_STATUS == res['status']) {
+            this.toastr.success('Success', '');
             this.plans.push(res['data']);
             if (this.plans.length > 0) {
               this.isNoData = true;
@@ -49,7 +51,12 @@ export class PlanComponent implements OnInit {
       this.service.update(this.plan)
         .then(res => {
           if (SUCCESS_STATUS == res['status']) {
-            this.plans = res['data'];
+            this.toastr.success('Success', '');
+            for (let index = 0; index < this.plans.length; index++) {
+              if (this.plans[index].planId == this.plan["planId"]) {
+                this.plans[index] = res["data"];
+              }
+            }
           }
         }).catch(e => {
           window.alert('Connection Error !');
@@ -61,6 +68,7 @@ export class PlanComponent implements OnInit {
     this.service.delete(planId)
       .then(res => {
         if (SUCCESS_STATUS == res['status']) {
+          this.toastr.success('Success', '');
           for (let index = 0; index < this.plans.length; index++) {
             if (this.plans[index].planId == planId) {
               this.plans.splice(index, 1);
@@ -85,8 +93,8 @@ export class PlanComponent implements OnInit {
     this.modalCreate.show();
   }
   openModalEdit = (plan) => {
-    this.title = "Edit"; 
-    this.plan = plan;
+    this.title = "Edit";
+    Object.assign(this.plan, plan);
     this.modalCreate.show();
   }
   back = () => {

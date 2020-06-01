@@ -3,6 +3,7 @@ import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { DoDService } from '../../containers/services/dod/dod.service';
 import { SUCCESS_STATUS } from '../../containers/constants/config';
 import { ModalDirective } from 'ngx-bootstrap/modal';
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-dod',
   templateUrl: './dod.component.html',
@@ -19,7 +20,7 @@ export class DodComponent implements OnInit {
     objectiveId: 0
   }
   isNoData: boolean = false;
-  constructor(public dodService: DoDService) { }
+  constructor(public dodService: DoDService, private toastr: ToastrService) { }
   ngOnInit() {
     if (this.objectiveId) {
       this.getDod(this.objectiveId);
@@ -68,6 +69,7 @@ export class DodComponent implements OnInit {
         if (SUCCESS_STATUS == res['status']) {
           this.dods.push(res['data']);
           this.checkLength(this.dods);
+          this.toastr.success('Success', '');
         }
         this.modalCreate.hide();
       }).catch(e => {
@@ -81,7 +83,7 @@ export class DodComponent implements OnInit {
       this.isNoData = false;
     }
   }
-  back(){
+  back() {
     window.history.back();
   }
 }

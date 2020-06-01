@@ -17,6 +17,7 @@ export class MyOkrComponent implements OnInit {
     description: "",
     employeeId: 0
   }
+  myObjective: String = "myObjective";
   currentUser: any;
   constructor(public objectiveService: ObjectiveService, public authService: AuthService, public router: Router) { }
   ngOnInit(): void {
@@ -34,5 +35,16 @@ export class MyOkrComponent implements OnInit {
       }).catch(e => {
         window.alert('Connection Error !');
       })
-  } 
+  }
+  objectiveChanged(data) {
+    if (data.action == "Update") {
+      for (let index = 0; index < this.objectives.length; index++) {
+        if (this.objectives[index].objectiveId == data.objective.objectiveId) {
+          this.objectives[index] = data.objective;
+        }
+      }
+    } else {
+      this.objectives.push(data.objective);
+    }
+  }
 }

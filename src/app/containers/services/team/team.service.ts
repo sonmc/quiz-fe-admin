@@ -88,4 +88,15 @@ export class TeamService {
                 })
         })
     }
+    getCheckin = (branchId): Promise<Object> => {
+        return new Promise((resolve, reject) => {
+            let url = `${API_URL}team/getCheckIn?branchId=${branchId}`;
+            this.apiService.getWithToken(url)
+                .subscribe(res => {
+                    resolve(res);
+                }, err => {
+                    reject(err);
+                })
+        })
+    }
 }

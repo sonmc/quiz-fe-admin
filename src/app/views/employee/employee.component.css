@@ -38,3 +38,7 @@ td {
     height: 25px;
     width: 33px;
 }
+
+.custom-radio {
+    padding-right: 20px;
+}

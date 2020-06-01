@@ -3,6 +3,7 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 import { SUCCESS_STATUS } from '../../containers/constants/config';
 import { TeamService } from '../../containers/services/team/team.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   templateUrl: 'team.component.html'
@@ -21,7 +22,7 @@ export class TeamComponent {
   };
   branchId: Number = 1;
   departmentId: Number = 1;
-  constructor(public teamService: TeamService, public router: Router) {
+  constructor(public teamService: TeamService, public router: Router, public toastr: ToastrService) {
   }
 
   ngOnInit(): void {
@@ -42,6 +43,7 @@ export class TeamComponent {
       this.teamService.create(this.team)
         .then(res => {
           if (res['status'] == SUCCESS_STATUS) {
+            this.toastr.success('Success', '');
             this.teams.push(res['data']);
             this.modalCreate.hide();
           }
@@ -52,6 +54,7 @@ export class TeamComponent {
       this.teamService.update(this.team)
         .then(res => {
           if (res['status'] == SUCCESS_STATUS) {
+            this.toastr.success('Success', '');
             for (let index = 0; index < this.teams.length; index++) {
               if (this.teams[index].teamId == this.team["teamId"]) {
                 this.teams[index] = this.team;
@@ -69,6 +72,7 @@ export class TeamComponent {
       this.teamService.delete(team.teamId)
         .then(res => {
           if (res['status'] == SUCCESS_STATUS) {
+            this.toastr.success('Success', '');
             for (let index = 0; index < this.teams.length; index++) {
               if (this.teams[index].teamId == team.teamId) {
                 this.teams.splice(index, 1);

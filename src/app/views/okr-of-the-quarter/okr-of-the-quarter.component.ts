@@ -10,7 +10,7 @@ import { ObjectiveService } from '../../containers/services/objective/objective.
 })
 export class OkrOfQuarterComponent implements OnInit {
   @ViewChild('modalCreate') modalCreate: ModalDirective;
- 
+  pageName: String = "quarter";
   datas: any;
   constructor(public service: OkrService, public objectiveService: ObjectiveService, public router: Router) {
   }

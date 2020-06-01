@@ -7,8 +7,9 @@
                     <tabset>
                         <tab heading="Team members">
                             <span style="margin-left: 20px;font-style: italic;margin-top: 20px;">
-                                <a (click)="openModalCreate()" href="javascript:;">Add members</a>
+                                <a  href="javascript:;">Add Members</a>
                             </span>
+
                             <div class="card-body">
                                 <table class="table table-hover">
                                     <thead>
@@ -37,21 +38,7 @@
                             </div>
                         </tab>
                         <tab heading="Objectives">
-                            <div class="card-body">
-                                <table class="table table-hover">
-                                    <tbody>
-                                        <tr *ngFor="let ob of objectives">
-                                            <td><a href="javascript:;" (click)="goKrList(ob.objectiveId, ob.teamId)">{{ob.objectiveName}}</a></td>
-                                            <td>{{ob.description}}</td>
-                                            <td>
-                                                <button (click)="openModalUpdate(ob)" class="btn btn-square btn-primary btn-sm">Update</button>
-                                                <button (click)="remove(ob.objectiveId)" class="btn btn-square btn-danger btn-sm">Delete</button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <a href="javascript:;" (click)="back()">Back</a>
-                            </div>
+                            <app-objective [objectives]="objectives" (changeData)="objectiveChanged($event)" [page]="pageName" [teamId]="teamId"></app-objective>
                         </tab>
                     </tabset>
                 </div>

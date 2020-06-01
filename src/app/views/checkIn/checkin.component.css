@@ -38,3 +38,7 @@
      height: 25px;
      width: 33px;
  }
+ 
+ #tbl-card-body {
+     padding: 0;
+ }

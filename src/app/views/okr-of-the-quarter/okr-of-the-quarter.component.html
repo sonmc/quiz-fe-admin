@@ -6,7 +6,7 @@
                 <div class="card-body">
                     <tabset>
                         <tab *ngFor="let d of datas" heading="{{d.quarterName}}">
-                            <app-objective [objectives]="d.objectives"></app-objective>
+                            <app-objective [page]="pageName" [objectives]="d.objectives"></app-objective>
                         </tab>
                     </tabset>
                 </div>

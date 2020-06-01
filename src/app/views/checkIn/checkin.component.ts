@@ -1,7 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SUCCESS_STATUS } from '../../containers/constants/config';
-import { ObjectiveService } from '../../containers/services/objective/objective.service';
 import { KrService } from '../../containers/services/kr/kr.service';
+import { TeamService } from '../../containers/services/team/team.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   templateUrl: 'checkin.component.html',
@@ -9,21 +10,28 @@ import { KrService } from '../../containers/services/kr/kr.service';
 })
 
 export class CheckInComponent implements OnInit {
-  datas: any;
-
-  constructor(public oService: ObjectiveService, public krService: KrService) {
+  teams: any;
+  isCollapsed: boolean = false;
+  isNoData: boolean = false;
+  constructor(public teamService: TeamService, public krService: KrService, private toastr: ToastrService) {
   }
 
   ngOnInit(): void {
     var branchId = 1;
-    this.oService.getCheckin(branchId)
+    this.teamService.getCheckin(branchId)
       .then(res => {
         if (SUCCESS_STATUS == res['status']) {
-          this.datas = res['data'];
-          for (let i = 0; i < this.datas.length; i++) {
-            for (let index = 0; index < this.datas[i].krs.length; index++) {
-              this.datas[i].krs[index].process = ((this.datas[i].krs[index].currentValue / this.datas[i].krs[index].targetValue) * 100) + "%";
-              this.datas[i].krs[index].isEdit = false;
+          this.teams = res['data'];
+          if (this.teams.length > 0) {
+            for (let i = 0; i < this.teams.length; i++) {
+              this.teams[i].isCollapsed = false;
+              for (let j = 0; j < this.teams[i].objectives.length; j++) {
+                for (let k = 0; k < this.teams[i].objectives[j].krs.length; k++) {
+                  var kr = this.teams[i].objectives[j].krs[k];
+                  this.teams[i].objectives[j].krs[k].process = ((kr.currentValue / kr.targetValue) * 100) + "%";
+                  this.teams[i].objectives[j].isEdit = false;
+                }
+              }
             }
           }
         }
@@ -31,13 +39,25 @@ export class CheckInComponent implements OnInit {
         window.alert('Connection Error !');
       })
   }
+
+
+  collapsed(team: any): void {
+    for (let index = 0; index < this.teams.length; index++) {
+      if (this.teams[index].teamId == team.teamId) {
+        this.teams[index].isCollapsed = !this.teams[index].isCollapsed;
+      }
+    }
+  }
+
   openEditer = (krId, week) => {
-    for (let i = 0; i < this.datas.length; i++) {
-      for (let index = 0; index < this.datas[i].krs.length; index++) {
-        if (this.datas[i].krs[index].krId == krId) {
-          for (let j = 0; j < this.datas[i].krs[index].weeks.length; j++) {
-            if (this.datas[i].krs[index].weeks[j].key == week) {
-              this.datas[i].krs[index].weeks[j].isEdit = true;
+    for (let i = 0; i < this.teams.length; i++) {
+      for (let o = 0; o < this.teams[i].objectives.length; o++) {
+        for (let k = 0; k < this.teams[i].objectives[o].krs.length; k++) {
+          if (this.teams[i].objectives[o].krs[k].krId == krId) {
+            for (let w = 0; w < this.teams[i].objectives[o].krs[k].weeks.length; w++) {
+              if (this.teams[i].objectives.krs[k].weeks[w].key == week) {
+                this.teams[i].objectives.krs[k].weeks[w].isEdit = true;
+              }
             }
           }
         }
@@ -45,18 +65,20 @@ export class CheckInComponent implements OnInit {
     }
   }
   hideEditer = (kr, w) => {
-    this.krService.checkin(kr.krId, w.weekId, w.value)
-      .then(res => {
-        if (!res['data']) {
-          location.reload();
-        }
-      }).catch(e => {
-        window.alert('Connection Error !');
-      })
-    for (let i = 0; i < this.datas.length; i++) {
-      for (let index = 0; index < this.datas[i].krs.length; index++) {
-        for (let j = 0; j < this.datas[i].krs[index].weeks.length; j++) {
-          this.datas[i].krs[index].weeks[j].isEdit = false;
+    this.krService.checkin(kr.krId, w.weekId, w.value).then(res => {
+      if (!res['data']) {
+        location.reload();
+        this.toastr.success('Success', '');
+      }
+    }).catch(e => {
+      window.alert('Connection Error !');
+    })
+    for (let i = 0; i < this.teams.length; i++) {
+      for (let o = 0; o < this.teams[i].objectives.length; o++) {
+        for (let k = 0; k < this.teams[i].objectives[o].krs.length; k++) {
+          for (let w = 0; w < this.teams[i].objectives[o].krs[k].weeks.length; w++) {
+            this.teams[i].objectives.krs[k].weeks[w].isEdit = false;
+          }
         }
       }
     }

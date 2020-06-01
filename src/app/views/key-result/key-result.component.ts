@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { SUCCESS_STATUS } from '../../containers/constants/config';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { DoDService } from '../../containers/services/dod/dod.service';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -31,7 +32,10 @@ export class KeyResultComponent implements OnInit {
     weeks: []
   };
   title: string = "Create";
-  constructor(public service: KrService, public router: Router, public dodService: DoDService) {
+  constructor(public service: KrService,
+    public router: Router,
+    public dodService: DoDService,
+    public toastr: ToastrService) {
 
   }
   ngOnInit(): void {
@@ -68,8 +72,8 @@ export class KeyResultComponent implements OnInit {
       this.service.create(this.kr)
         .then(res => {
           if (SUCCESS_STATUS == res['status']) {
-            this.krs.push(res["data"]);
-            this.modalCreate.hide();
+            this.toastr.success('Success', '');
+            this.krs.push(res["data"]); 
             if (this.krs.length > 0) {
               this.isNoData = true;
             } else {
@@ -80,21 +84,28 @@ export class KeyResultComponent implements OnInit {
           window.alert('Connection Error !');
         })
     }
-    // else {
-    //   this.service.update(this.kr)
-    //     .then(res => {
-    //       if (SUCCESS_STATUS == res['status']) {
-    //         this.krs = res['data'];
-    //       }
-    //     }).catch(e => {
-    //       window.alert('Connection Error !');
-    //     })
-    // }
+    else {
+      this.service.update(this.kr)
+        .then(res => { 
+          if (SUCCESS_STATUS == res['status']) {
+            for (let index = 0; index < this.krs.length; index++) {
+              if (this.kr["krId"] == this.krs[index].krId) {
+                this.krs[index] = res["data"];
+              }
+            } 
+            this.toastr.success('Success', '');
+          }
+        }).catch(e => {
+          window.alert('Connection Error !');
+        })
+    }
+    this.modalCreate.hide();
   }
   delete = (krId) => {
     this.service.delete(krId)
       .then(res => {
         if (SUCCESS_STATUS == res['status']) {
+          this.toastr.success('Success', '');
           for (let index = 0; index < this.krs.length; index++) {
             if (this.krs[index].krId == krId) {
               this.krs.splice(index, 1);
@@ -125,6 +136,11 @@ export class KeyResultComponent implements OnInit {
       employeeId: 0,
       weeks: []
     };
+    this.modalCreate.show();
+  }
+  openModalEdit = (kr) => {
+    this.title = "Update";
+    Object.assign(this.kr, kr);
     this.modalCreate.show();
   }
   back = () => {

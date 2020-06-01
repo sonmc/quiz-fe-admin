@@ -4,7 +4,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { FormsModule } from '@angular/forms';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { CheckInComponent } from './checkin.component';
-import { CheckInRoutingModule } from './checkin-routing.module';
+import { CheckInRoutingModule } from './checkin-routing.module'; 
 @NgModule({
   imports: [
     CheckInRoutingModule,

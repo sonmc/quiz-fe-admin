@@ -1,32 +1,28 @@
 
 import { Component, OnInit } from '@angular/core';
-import { SUCCESS_STATUS } from '../../containers/constants/config'; 
+import { SUCCESS_STATUS } from '../../containers/constants/config';
 import { OkrService } from '../../containers/services/okr/okr.service';
+import { ToastrService } from 'ngx-toastr';
 var $: any;
 
 @Component({
   templateUrl: 'okr-of-the-year.component.html',
 })
 export class OkrOfYearComponent implements OnInit {
-  data: Object = {
-    objective: "",
-    description: "",
-    departments: [],
-    okrOfQuarters: [],
-    dods: []
-  };
+  data: Object = {};
   objective: String;
   description: String;
   desEdited: Boolean = false;
   objEdited: Boolean = false;
   dateNow = new Date();
   year: Number;
-  constructor(public service: OkrService) {
+  branchId: Number = 1;
+  constructor(public service: OkrService, public toastr: ToastrService) {
     this.year = this.dateNow.getFullYear();
   }
   ngOnInit() {
-    let branchId = 1;
-    this.service.getOkrYear(branchId)
+
+    this.service.getOkrYear(this.branchId)
       .then(res => {
         if (SUCCESS_STATUS == res['status']) {
           this.data = res['data'];
@@ -44,6 +40,9 @@ export class OkrOfYearComponent implements OnInit {
     this.objEdited = true;
   }
   hideEditerDes = () => {
+    if (!this.data['description']) {
+      this.data['description'] = "";
+    }
     if (this.description.trim() != this.data['description'].trim()) {
       this.data['description'] = this.description;
       this.saveDes(this.data);
@@ -51,6 +50,9 @@ export class OkrOfYearComponent implements OnInit {
     this.desEdited = false;
   }
   hideEditerObj = () => {
+    if (!this.data['objective']) {
+      this.data['objective'] = "";
+    }
     if (this.objective.trim() != this.data['objective'].trim()) {
       this.data['objective'] = this.objective;
       this.saveDes(this.data);
@@ -58,9 +60,12 @@ export class OkrOfYearComponent implements OnInit {
     this.objEdited = false;
   }
   saveDes = (data: any) => {
+    data.branchId = this.branchId;
+    debugger
     this.service.update(data)
       .then(res => {
         if (SUCCESS_STATUS == res['status']) {
+          this.toastr.success('Success', '');
           this.data = res['data'];
         }
       }).catch(e => {
