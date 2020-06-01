@@ -6,8 +6,6 @@
                 <th>Content</th>
                 <th>Owner</th>
                 <th>Target Value</th>
-                <th>Start Date</th>
-                <th>End Date</th>
             </tr>
         </thead>
         <tbody *ngIf="isNoData">
@@ -15,8 +13,6 @@
                 <td><a href="javascript:;" (click)="goListPlan(kr.krId)">{{kr.description}}</a></td>
                 <td>{{kr.employeeId}}</td>
                 <td>{{kr.targetValue}}</td>
-                <td>{{kr.startDate | date:'yyyy-MM-dd'}}</td>
-                <td>{{kr.endDate | date:'yyyy-MM-dd'}}</td>
                 <td>
                     <button (click)="openModalEdit(kr)" class="btn btn-square btn-primary btn-sm">Update</button>
                     <button (click)="delete(kr.krId)" class="btn btn-square btn-danger btn-sm">Delete</button>
@@ -53,12 +49,6 @@
                     </div>
                     <div class="form-group">
                         <input type="text" name="targetValue" [(ngModel)]="kr.targetValue" class="form-control" placeholder="Target Value">
-                    </div>
-                    <div class="form-group">
-                        <input class="form-control" [ngModel]="kr.startDate | date:'yyyy-MM-dd'" (ngModelChange)="kr.startDate = $event" [value]="kr.startDate | date:'yyyy-MM-dd'" type="date" name="start-date" placeholder="Start date">
-                    </div>
-                    <div class="form-group">
-                        <input class="form-control" [ngModel]="kr.endDate | date:'yyyy-MM-dd'" (ngModelChange)="kr.endDate = $event" [value]="kr.endDate | date:'yyyy-MM-dd'" type="date" name="end-date" placeholder="End date">
                     </div>
                 </form>
             </div>

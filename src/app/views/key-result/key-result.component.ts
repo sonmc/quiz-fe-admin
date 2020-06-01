@@ -26,8 +26,6 @@ export class KeyResultComponent implements OnInit {
     baseValue: 0,
     currentValue: 0,
     targetValue: 0,
-    startDate: null,
-    endDate: null,
     employeeId: 0,
     weeks: []
   };
@@ -73,7 +71,7 @@ export class KeyResultComponent implements OnInit {
         .then(res => {
           if (SUCCESS_STATUS == res['status']) {
             this.toastr.success('Success', '');
-            this.krs.push(res["data"]); 
+            this.krs.push(res["data"]);
             if (this.krs.length > 0) {
               this.isNoData = true;
             } else {
@@ -86,13 +84,13 @@ export class KeyResultComponent implements OnInit {
     }
     else {
       this.service.update(this.kr)
-        .then(res => { 
+        .then(res => {
           if (SUCCESS_STATUS == res['status']) {
             for (let index = 0; index < this.krs.length; index++) {
               if (this.kr["krId"] == this.krs[index].krId) {
                 this.krs[index] = res["data"];
               }
-            } 
+            }
             this.toastr.success('Success', '');
           }
         }).catch(e => {
@@ -131,8 +129,6 @@ export class KeyResultComponent implements OnInit {
       measurement: "",
       baseValue: "",
       targetValue: "",
-      startDate: null,
-      endDate: null,
       employeeId: 0,
       weeks: []
     };

@@ -77,6 +77,17 @@ export class TeamService {
                 })
         })
     }
+    addMember = (data) => { 
+        return new Promise((resolve, reject) => {
+            let url = `${API_URL}team/addMember`;
+            this.apiService.postWithToken(url, data)
+                .subscribe(res => {
+                    resolve(res);
+                }, err => {
+                    reject(err);
+                })
+        })
+    }
     getObjOfTeam = (data): Promise<Object> => {
         return new Promise((resolve, reject) => {
             let url = `${API_URL}objective/get`;
@@ -91,6 +102,17 @@ export class TeamService {
     getCheckin = (branchId): Promise<Object> => {
         return new Promise((resolve, reject) => {
             let url = `${API_URL}team/getCheckIn?branchId=${branchId}`;
+            this.apiService.getWithToken(url)
+                .subscribe(res => {
+                    resolve(res);
+                }, err => {
+                    reject(err);
+                })
+        })
+    }
+    getAllUser = (branchId, teamId): Promise<Object> => { 
+        return new Promise((resolve, reject) => {
+            let url = `${API_URL}team/getAllUser?branchId=${branchId}&teamId=${teamId}`;
             this.apiService.getWithToken(url)
                 .subscribe(res => {
                     resolve(res);

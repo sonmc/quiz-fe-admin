@@ -8,17 +8,16 @@
                         <tab heading="Team members">
                             <div *ngIf="isAddMember">
                                 <span style="margin-left: 20px;font-style: italic;margin-top: 20px;">
-                                    <a href="javascript:;" (click)="addMember()">Add Members</a>
+                                    <a href="javascript:;" (click)="showFormAddUser()">Add Members</a>
                                 </span>
                             </div>
                             <div *ngIf="!isAddMember" style="width: 500px;" class="row">
                                 <div class="col-md-8">
                                     <l-select2 [(ngModel)]="dataSelected" [data]="allUser" [options]="options" [ngModelOptions]="{standalone: true}"></l-select2>
-
                                 </div>
                                 <div class="col-md-4" style="margin-top: 3px;padding-left: 0;">
                                     <button class="btn btn-square btn-success btn-sm" (click)="addMember()">Save</button>
-                                    <button class="btn btn-square btn-default btn-sm" (click)="cancel()">Cancel</button>
+                                    <button class="btn btn-square btn-default btn-sm" (click)="showFormAddUser()">Cancel</button>
                                 </div>
                             </div>
                             <div class="card-body">

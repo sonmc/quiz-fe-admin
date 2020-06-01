@@ -38,19 +38,16 @@ export class TeamDetailComponent implements OnInit {
     ngOnInit(): void {
         this.getTeamMember();
         this.getObjOfTeam();
-        this.getAllUser();
+        this.getAllUser(this.branchId, this.teamId);
 
     }
-    getAllUser = () => {
-        this.userService.get(0, this.branchId)
+    getAllUser = (branchId, teamId) => {
+        this.teamService.getAllUser(branchId, teamId)
             .then(res => {
                 if (SUCCESS_STATUS == res['status']) {
-                    let users = res["data"];
-                    for (let index = 0; index < users.length; index++) {
-                        let id = users[index].employeeId;
-                        let userName = users[index].userName;
-                        this.allUser.push({ id: id, text: userName, value: userName });
-                    }
+                    this.allUser = res["data"].map(function (user) {
+                        return { id: user.employeeId, text: user.userName, value: user.userName };
+                    });
                 }
             }).catch(e => {
                 window.alert('Connection Error !');
@@ -94,13 +91,12 @@ export class TeamDetailComponent implements OnInit {
                         }
                     }
                 }
+                this.getAllUser(this.branchId, this.teamId);
             }).catch(e => {
                 window.alert('Connection Error !');
             })
     }
-    back = () => {
-        window.history.back();
-    }
+
     objectiveChanged(data) {
         if (data.action == "Update") {
             for (let index = 0; index < this.objectives.length; index++) {
@@ -113,10 +109,35 @@ export class TeamDetailComponent implements OnInit {
         }
     }
     addMember = () => {
-        this.isAddMember = !this.isAddMember;
+        var empIds = this.dataSelected.map(function (user) {
+            if (user) {
+                return parseInt(user.id);
+            }
+            return [];
+
+        });
+        var data = {
+            teamId: this.teamId,
+            empIds: empIds
+        }
+        this.teamService.addMember(data)
+            .then(res => {
+                if (res['status'] == SUCCESS_STATUS) {
+                    this.employees = res["data"];
+                    this.getAllUser(this.branchId, this.teamId);
+                    this.toastr.success('Success', '');
+                    this.isAddMember = !this.isAddMember;
+                }
+            }).catch(e => {
+                window.alert('Connection Error !');
+            })
+
     }
-    cancel = () => {
+    showFormAddUser = () => {
         this.dataSelected = [];
         this.isAddMember = !this.isAddMember;
+    }
+    back = () => {
+        window.history.back();
     }
 }
