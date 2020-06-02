@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { SUCCESS_STATUS } from '../../containers/constants/config';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { DoDService } from '../../containers/services/dod/dod.service';
-import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -32,8 +31,7 @@ export class KeyResultComponent implements OnInit {
   title: string = "Create";
   constructor(public service: KrService,
     public router: Router,
-    public dodService: DoDService,
-    public toastr: ToastrService) {
+    public dodService: DoDService) {
 
   }
   ngOnInit(): void {
@@ -70,7 +68,6 @@ export class KeyResultComponent implements OnInit {
       this.service.create(this.kr)
         .then(res => {
           if (SUCCESS_STATUS == res['status']) {
-            this.toastr.success('Success', '');
             this.krs.push(res["data"]);
             if (this.krs.length > 0) {
               this.isNoData = true;
@@ -91,7 +88,6 @@ export class KeyResultComponent implements OnInit {
                 this.krs[index] = res["data"];
               }
             }
-            this.toastr.success('Success', '');
           }
         }).catch(e => {
           window.alert('Connection Error !');
@@ -103,7 +99,6 @@ export class KeyResultComponent implements OnInit {
     this.service.delete(krId)
       .then(res => {
         if (SUCCESS_STATUS == res['status']) {
-          this.toastr.success('Success', '');
           for (let index = 0; index < this.krs.length; index++) {
             if (this.krs[index].krId == krId) {
               this.krs.splice(index, 1);

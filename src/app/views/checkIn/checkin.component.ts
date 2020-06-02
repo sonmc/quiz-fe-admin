@@ -27,8 +27,15 @@ export class CheckInComponent implements OnInit {
               this.teams[i].isCollapsed = false;
               for (let j = 0; j < this.teams[i].objectives.length; j++) {
                 for (let k = 0; k < this.teams[i].objectives[j].krs.length; k++) {
-                  var kr = this.teams[i].objectives[j].krs[k];
-                  this.teams[i].objectives[j].krs[k].process = ((kr.currentValue / kr.targetValue) * 100) + "%";
+                  var kr = this.teams[i].objectives[j].krs[k]; 
+                  this.teams[i].objectives[j].krs[k].process = ((kr.currentValue / kr.targetValue) * 100);
+                  if (((kr.currentValue / kr.targetValue) * 100) < 40) {
+                    this.teams[i].objectives[j].krs[k].status = "process-danger";
+                  } else if (((kr.currentValue / kr.targetValue) * 100) > 40 && ((kr.currentValue / kr.targetValue) * 100) < 70) {
+                    this.teams[i].objectives[j].krs[k].status = "process-warning";
+                  } else {
+                    this.teams[i].objectives[j].krs[k].status = "process-success";
+                  }
                   this.teams[i].objectives[j].isEdit = false;
                 }
               }
@@ -55,8 +62,8 @@ export class CheckInComponent implements OnInit {
         for (let k = 0; k < this.teams[i].objectives[o].krs.length; k++) {
           if (this.teams[i].objectives[o].krs[k].krId == krId) {
             for (let w = 0; w < this.teams[i].objectives[o].krs[k].weeks.length; w++) {
-              if (this.teams[i].objectives.krs[k].weeks[w].key == week) {
-                this.teams[i].objectives.krs[k].weeks[w].isEdit = true;
+              if (this.teams[i].objectives[o].krs[k].weeks[w].key == week) {
+                this.teams[i].objectives[o].krs[k].weeks[w].isEdit = true;
               }
             }
           }
@@ -77,7 +84,7 @@ export class CheckInComponent implements OnInit {
       for (let o = 0; o < this.teams[i].objectives.length; o++) {
         for (let k = 0; k < this.teams[i].objectives[o].krs.length; k++) {
           for (let w = 0; w < this.teams[i].objectives[o].krs[k].weeks.length; w++) {
-            this.teams[i].objectives.krs[k].weeks[w].isEdit = false;
+            this.teams[i].objectives[o].krs[k].weeks[w].isEdit = false;
           }
         }
       }

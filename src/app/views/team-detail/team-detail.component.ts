@@ -3,7 +3,6 @@ import { UserService } from '../../containers/services/user/user.service';
 import { SUCCESS_STATUS } from '../../containers/constants/config';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TeamService } from '../../containers/services/team/team.service';
-import { ToastrService } from 'ngx-toastr';
 @Component({
     templateUrl: 'team-detail.component.html'
 })
@@ -27,8 +26,7 @@ export class TeamDetailComponent implements OnInit {
     constructor(public userService: UserService,
         private actRoute: ActivatedRoute,
         public router: Router,
-        public teamService: TeamService,
-        public toastr: ToastrService
+        public teamService: TeamService
     ) {
         this.teamId = parseInt(this.actRoute.snapshot.params.id);
         this.teamName = this.actRoute.snapshot.params.name;
@@ -84,7 +82,6 @@ export class TeamDetailComponent implements OnInit {
         this.teamService.removeMember(empId)
             .then(res => {
                 if (res['status'] == SUCCESS_STATUS) {
-                    this.toastr.success('Success', '');
                     for (let index = 0; index < this.employees.length; index++) {
                         if (this.employees[index].employeeId == empId) {
                             this.employees.splice(index, 1);
@@ -125,7 +122,6 @@ export class TeamDetailComponent implements OnInit {
                 if (res['status'] == SUCCESS_STATUS) {
                     this.employees = res["data"];
                     this.getAllUser(this.branchId, this.teamId);
-                    this.toastr.success('Success', '');
                     this.isAddMember = !this.isAddMember;
                 }
             }).catch(e => {

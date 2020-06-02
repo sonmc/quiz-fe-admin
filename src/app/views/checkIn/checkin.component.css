@@ -42,3 +42,15 @@
  #tbl-card-body {
      padding: 0;
  }
+ 
+ .process-danger {
+     background-color: red;
+ }
+ 
+ .process-warning {
+     background-color: yellow;
+ }
+ 
+ .process-success {
+     background-color: green;
+ }
