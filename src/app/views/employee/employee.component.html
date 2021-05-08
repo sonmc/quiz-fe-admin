@@ -4,31 +4,33 @@
             <div class="card">
                 <div class="card-header"><b>Employees</b></div>
                 <span style="margin-left: 20px;font-style: italic;margin-top: 20px;"><a (click)="openModalCreate()" href="javascript:;">Create new</a></span>
-                <div class="card-body">
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>Username</th>
-                                <th>Email</th>
-                                <th>Dob</th>
-                                <th>Phone number</th>
-                                <th>Address</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let emp of employees">
-                                <td>{{emp.userName}}</td>
-                                <td>{{emp.email}}</td>
-                                <td>{{emp.dob}}</td>
-                                <td>{{emp.phoneNumber}}</td>
-                                <td>{{emp.address}}</td>
-                                <td>
-                                    <button (click)="openUpdateModal(emp)" class="btn btn-square btn-primary btn-sm">Update</button>
-                                    <button (click)="deactive(emp.employeeId)" class="btn btn-square btn-danger btn-sm">Deactive</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <div class="search-table-outter wrapper">
+                    <div class="card-body">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Username</th>
+                                    <th>Email</th>
+                                    <th>Dob</th>
+                                    <th>Phone number</th>
+                                    <th>Address</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let emp of employees">
+                                    <td>{{emp.userName}}</td>
+                                    <td>{{emp.email}}</td>
+                                    <td>{{emp.dob}}</td>
+                                    <td>{{emp.phoneNumber}}</td>
+                                    <td>{{emp.address}}</td>
+                                    <td>
+                                        <button (click)="openUpdateModal(emp)" class="btn btn-square btn-primary btn-sm">Update</button>
+                                        <button (click)="deactive(emp.employeeId)" class="btn btn-square btn-danger btn-sm">Deactive</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

@@ -27,7 +27,6 @@ import { ToastrModule } from 'ngx-toastr';
 @NgModule({
   imports: [
     BrowserModule,
-    FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,

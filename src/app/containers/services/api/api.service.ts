@@ -10,7 +10,8 @@ import { Observable } from 'rxjs';
 })
 
 export class ApiService {
-  constructor(public httpClient: HttpClient, public localStorageService: LocalStorageService) { }
+  constructor(public httpClient: HttpClient,
+     public localStorageService: LocalStorageService) { }
 
   get = (url) => {
     return this.httpClient.get(url);

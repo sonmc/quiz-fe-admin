@@ -24,8 +24,13 @@ export class LoginComponent {
       password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(16)]]
     });
   }
+   data = {
+      message: "",
+      data: {},
+      status: 1
+  }
   login = () => { 
-    if (this.formLogin.valid) { 
+   /* if (this.formLogin.valid) { 
       let value = this.formLogin.value;
       this.authService.login(value['username'], value['password'])
         .then(res => {
@@ -40,6 +45,7 @@ export class LoginComponent {
         }).catch(e => { 
           window.alert('Connection Error !');
         })
-    }
+    } */
+    this.router.navigate(['/employee']);
   }
 }

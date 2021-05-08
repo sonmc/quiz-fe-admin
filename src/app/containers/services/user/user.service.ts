@@ -19,16 +19,9 @@ export class UserService {
     return user;
   }
 
-  get = (teamId, branchId): Promise<Object> => {
-    return new Promise((resolve, reject) => {
-      let url = `${API_URL}user/get?teamId=${teamId}&branchId=${branchId}`;
-      this.apiService.getWithToken(url)
-        .subscribe(res => {
-          resolve(res);
-        }, err => {
-          reject(err);
-        })
-    })
+  get = (teamId, branchId) => {
+    let url = `${API_URL}user/get?teamId=${teamId}&branchId=${branchId}`;
+    return this.apiService.getWithToken(url);
   }
   create = (user): Promise<Object> => {
     return new Promise((resolve, reject) => {

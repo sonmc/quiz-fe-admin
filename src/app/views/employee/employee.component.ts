@@ -34,27 +34,37 @@ export class EmployeeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userService.get(this.teamId, this.branchId)
+   /* this.userService.get(this.teamId, this.branchId)
       .then(res => {
         if (SUCCESS_STATUS == res['status']) {
           this.employees = res['data'];
         }
       }).catch(e => {
         window.alert('Connection Error !');
-      })
+      }) */
+      this.employees = [
+        {
+          id:1,
+          userName: "Kiều Anh",
+          email: "kieuanh@gmail.com",
+          dob: "29/12/2020",
+          phoneNumber: "0983883686",
+          address: "Hà nội"
+        }
+      ]
   }
 
   save = () => {
-    this.userService.create(this.employee)
-      .then(res => {
-        this.toastr.success('Success', '');
-        if (res['status'] == SUCCESS_STATUS) {
-          this.employees.push(res['data']);
-          this.modalCreate.hide();
-        }
-      }).catch(e => {
-        window.alert('Connection Error !');
-      })
+    this.userService.get(1,1)
+    .subscribe(res => {
+         this.toastr.success('Success', '');
+         if (res['status'] == SUCCESS_STATUS) {
+           this.employees.push(res['data']);
+           this.modalCreate.hide();
+         }
+        }, err => {
+          window.alert('Connection Error !');
+        })
   }
   openModalCreate = () => {
     this.employee = {
