@@ -11,41 +11,41 @@ import { SUCCESS_STATUS } from '../../containers/constants/config';
   templateUrl: 'login.component.html'
 })
 export class LoginComponent {
-  
+
   formLogin: FormGroup;
-  messageError: string; 
+  messageError: string;
 
   constructor(public fb: FormBuilder, public authService: AuthService, public router: Router,
     public shareService: ShareService, public userService: UserService) {
- 
+
     this.messageError = '';
     this.formLogin = this.fb.group({
       username: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(16)]]
     });
   }
-   data = {
-      message: "",
-      data: {},
-      status: 1
+  data = {
+    message: "",
+    data: {},
+    status: 1
   }
-  login = () => { 
-   /* if (this.formLogin.valid) { 
-      let value = this.formLogin.value;
-      this.authService.login(value['username'], value['password'])
-        .then(res => {
-          if (res['status'] == SUCCESS_STATUS) { 
-            let employee = res['data'];
-            this.authService.saveLocal(employee);
-            this.shareService.updateUser(this.userService.convertUser(employee));
-            this.router.navigate(['/my-okr']);
-          } else { 
-            this.messageError = res['message']; 
-          } 
-        }).catch(e => { 
-          window.alert('Connection Error !');
-        })
-    } */
+  login = () => {
+    /* if (this.formLogin.valid) { 
+       let value = this.formLogin.value;
+       this.authService.login(value['username'], value['password'])
+         .then(res => {
+           if (res['status'] == SUCCESS_STATUS) { 
+             let employee = res['data'];
+             this.authService.saveLocal(employee);
+             this.shareService.updateUser(this.userService.convertUser(employee));
+             this.router.navigate(['/my-okr']);
+           } else { 
+             this.messageError = res['message']; 
+           } 
+         }).catch(e => { 
+           window.alert('Connection Error !');
+         })
+     } */
     this.router.navigate(['/employee']);
   }
 }
