@@ -1,6 +1,4 @@
 import { Injectable } from '@angular/core';
-
-import { User } from '../../models/user/user';
 import { ApiService } from '../api/api.service';
 import { API_URL } from '../../constants/config';
 
@@ -8,13 +6,13 @@ import { API_URL } from '../../constants/config';
   providedIn: 'root'
 })
 
-export class UserService {
+export class QuestionService {
   constructor(public apiService: ApiService) { }
  
  
   get = ( ): Promise<Object> => {
     return new Promise((resolve, reject) => {
-      let url = `${API_URL}users/get`;
+      let url = `${API_URL}questions/get`;
       this.apiService.getWithToken(url)
         .subscribe(res => {
           resolve(res);
@@ -22,16 +20,6 @@ export class UserService {
           reject(err);
         })
     })
-  }
-  create = (user): Promise<Object> => {
-    return new Promise((resolve, reject) => {
-      let url = `${API_URL}users/create`;
-      this.apiService.postWithToken(url, user).subscribe(res => {
-        resolve(res);
-      }, err => {
-        reject(err);
-      })
-    })
-  }
+  } 
   
 }

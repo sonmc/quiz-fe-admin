@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
-                <div class="card-header"><b>Employees</b></div>
+                <div class="card-header"><b>Users</b></div>
                 <span style="margin-left: 20px;font-style: italic;margin-top: 20px;"><a (click)="openModalCreate()" href="javascript:;">Create new</a></span>
                 <div class="search-table-outter wrapper">
                     <div class="card-body">
@@ -11,21 +11,22 @@
                                 <tr>
                                     <th>Username</th>
                                     <th>Email</th>
-                                    <th>Dob</th>
-                                    <th>Phone number</th>
+                                    <th>Age</th>
+                                    <th>Gender</th>
                                     <th>Address</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr *ngFor="let emp of employees">
-                                    <td>{{emp.userName}}</td>
-                                    <td>{{emp.email}}</td>
-                                    <td>{{emp.dob}}</td>
-                                    <td>{{emp.phoneNumber}}</td>
-                                    <td>{{emp.address}}</td>
+                                <tr *ngFor="let user of users">
+                                    <td>{{user.userName}}</td>
+                                    <td>{{user.email}}</td>
+                                    <td>{{user.age}}</td>
+                                    <td>{{user.gender}}</td>
+                                    <td>{{user.address}}</td>
                                     <td>
-                                        <button (click)="openUpdateModal(emp)" class="btn btn-square btn-primary btn-sm">Update</button>
-                                        <button (click)="deactive(emp.employeeId)" class="btn btn-square btn-danger btn-sm">Deactive</button>
+                                        <button (click)="openUpdateModal(user)" class="btn btn-square btn-primary btn-sm">Update</button>
+                                        <button (click)="deactive(user.id)" class="btn btn-square btn-danger btn-sm">Deactive</button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -35,7 +36,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> 
 <div bsModal #modalCreate="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -48,19 +49,19 @@
             <div class="modal-body">
                 <form>
                     <div class="form-group">
-                        <input type="text" name="username" [(ngModel)]="employee.userName" class="form-control" placeholder="Username">
+                        <input type="text" name="username" [(ngModel)]="user.userName" class="form-control" placeholder="Username">
                     </div>
                     <div class="form-group">
-                        <input class="form-control" type="text" [(ngModel)]="employee.email" name="email" placeholder="Email">
+                        <input class="form-control" type="text" [(ngModel)]="user.email" name="email" placeholder="Email">
                     </div>
                     <div class="form-group">
-                        <input class="form-control" type="date" [(ngModel)]="employee.dob" name="dob" placeholder="Dob">
+                        <input class="form-control" type="date" [(ngModel)]="user.gender" name="dogenderb" placeholder="Gender">
                     </div>
                     <div class="form-group">
-                        <input type="text" name="phoneNumber" [(ngModel)]="employee.phoneNumber" class="form-control" placeholder="Phone Number">
+                        <input type="text" name="phoneNumber" [(ngModel)]="user.phoneNumber" class="form-control" placeholder="Phone Number">
                     </div>
                     <div class="form-group">
-                        <input type="text" name="address" [(ngModel)]="employee.address" class="form-control" placeholder="Address">
+                        <input type="text" name="address" [(ngModel)]="user.address" class="form-control" placeholder="Address">
                     </div>
                     <div class="form-group">
                         <form class="form-inline">

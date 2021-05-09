@@ -19,12 +19,24 @@ export const routes: Routes = [
     path: '',
     component: LayoutComponent,
     data: {
-      title: 'Home'
+      title: 'Layout'
     },
     children: [
       {
-        path: 'employee',
-        loadChildren: () => import('./views/employee/employee.module').then(m => m.EmployeeModule)
+        path: 'user',
+        loadChildren: () => import('./views/user/user.module').then(m => m.UserModule)
+      },
+      {
+        path: 'category',
+        loadChildren: () => import('./views/category/category.module').then(m => m.CategoryModule)
+      },
+      {
+        path: 'group',
+        loadChildren: () => import('./views/group/group.module').then(m => m.GroupModule)
+      },
+      {
+        path: 'question',
+        loadChildren: () => import('./views/question/question.module').then(m => m.QuestionModule)
       }
     ]
   }

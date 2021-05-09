@@ -1,5 +1,5 @@
-export class Employee {
-  public employeeId: string;
+export class User {
+  public id: string;
   public username: string;
   public token: string;
 }
