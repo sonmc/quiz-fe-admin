@@ -34,7 +34,6 @@ export class ApiService {
     let token = user ? user['token'] : null;
     let headers = new HttpHeaders();
     headers = headers.set('Authorization', `Bearer ${token}`);
-    debugger
     return this.httpClient.get(url, { headers });
   }
 

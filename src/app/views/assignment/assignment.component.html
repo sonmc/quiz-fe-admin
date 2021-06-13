@@ -17,13 +17,14 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let ca of categories; index as i">
+                <tr *ngFor="let as of assignments; index as i">
                   <td>{{i}}</td>
-                  <td>{{ca.name}}</td>
-                  <td>{{ca.description}}</td>
+                  <td>{{as.id}}</td>
+                  <td>{{as.name}}</td>
+                  <td>{{as.description}}</td>
                   <td>
-                    <button (click)="openUpdateModal(ca)" class="btn btn-square btn-primary btn-sm">Update</button>
-                    <button (click)="delete(ca.id)" class="btn btn-square btn-danger btn-sm">Delete</button>
+                    <button (click)="openUpdateModal(as)" class="btn btn-square btn-primary btn-sm">Update</button>
+                    <button (click)="delete(as.id)" class="btn btn-square btn-danger btn-sm">Delete</button>
                   </td>
                 </tr>
               </tbody>
@@ -47,10 +48,10 @@
       <div class="modal-body">
         <form>
           <div class="form-group">
-            <input type="text" name="name" [(ngModel)]="category.name" class="form-control" placeholder="Name">
+            <input type="text" name="name" [(ngModel)]="assignment.name" class="form-control" placeholder="Name">
           </div>
           <div class="form-group">
-            <input type="text" name="description" [(ngModel)]="category.description" class="form-control"
+            <input type="text" name="description" [(ngModel)]="assignment.description" class="form-control"
               placeholder="Description">
           </div>
         </form>

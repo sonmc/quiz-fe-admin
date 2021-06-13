@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { SUCCESS_STATUS } from '../../containers/constants/config';
 import { QuestionService } from '../../containers/services/question/question.service';
 
@@ -8,6 +9,7 @@ import { QuestionService } from '../../containers/services/question/question.ser
   styleUrls: ['./question.component.css']
 })
 export class QuestionComponent implements OnInit {
+  @ViewChild('modalCreate') modalCreate: ModalDirective;
   questions: any;
   constructor(private questionService: QuestionService) { }
 
@@ -21,5 +23,7 @@ export class QuestionComponent implements OnInit {
       window.alert('Connection Error !');
     })
   }
-
+  openModalCreate = () => {
+    this.modalCreate.show();
+  }
 }

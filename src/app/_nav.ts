@@ -7,18 +7,23 @@ export const navItems: INavData[] = [
     icon: 'icon-cursor'
   },
   {
-    name: 'Category',
+    name: 'Categories',
     url: '/category',
     icon: 'icon-cursor'
   },
   {
-    name: 'Question',
+    name: 'Questions',
     url: '/question',
     icon: 'icon-cursor'
   },
   {
-    name: 'Group',
+    name: 'Groups',
     url: '/group',
+    icon: 'icon-cursor'
+  },
+  {
+    name: 'Assignments',
+    url: '/assignment',
     icon: 'icon-cursor'
   }
 ];

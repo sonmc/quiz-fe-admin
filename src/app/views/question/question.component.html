@@ -2,8 +2,9 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
-                <div class="card-header"><b>Users</b></div>
-                <span style="margin-left: 20px;font-style: italic;margin-top: 20px;"><a (click)="openModalCreate()" href="javascript:;">Create new</a></span>
+                <div class="card-header"><b>questions</b></div>
+                <span style="margin-left: 20px;font-style: italic;margin-top: 20px;"><a (click)="openModalCreate()"
+                        href="javascript:;">Create new</a></span>
                 <div class="search-table-outter wrapper">
                     <div class="card-body">
                         <table class="table table-hover">
@@ -11,9 +12,9 @@
                                 <tr>
                                     <th>Id</th>
                                     <th>Content</th>
-                                    <th>Age</th>
-                                    <th>Gender</th>
-                                    <th>Address</th>
+                                    <th>Category</th>
+                                    <th>Level</th>
+                                    <th>Mark</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -21,12 +22,14 @@
                                 <tr *ngFor="let question of questions">
                                     <td>{{question.id}}</td>
                                     <td>{{question.content}}</td>
-                                    <td>{{user.age}}</td>
-                                    <td>{{user.gender}}</td>
-                                    <td>{{user.address}}</td>
+                                    <td>{{question.category}}</td>
+                                    <td>{{question.questionType}}</td>
+                                    <td>{{user.mark}}</td>
                                     <td>
-                                        <button (click)="openUpdateModal(question)" class="btn btn-square btn-primary btn-sm">Update</button>
-                                        <button (click)="deactive(question.id)" class="btn btn-square btn-danger btn-sm">Deactive</button>
+                                        <button (click)="openUpdateModal(question)"
+                                            class="btn btn-square btn-primary btn-sm">Update</button>
+                                        <button (click)="delete(question.id)"
+                                            class="btn btn-square btn-danger btn-sm">Delete</button>
                                     </td>
                                 </tr>
                             </tbody>
@@ -36,4 +39,35 @@
             </div>
         </div>
     </div>
-</div> 
+</div>
+<div bsModal #modalCreate="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Create new</h4>
+                <button type="button" class="close" (click)="modalCreate.hide()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <input type="text" name="content" [(ngModel)]="question.content" class="form-control"
+                            placeholder="Content">
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control">
+                            <option>1</option>
+                            <option>2</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-square btn-secondary" (click)="modalCreate.hide()">Close</button>
+                <button type="button" class="btn btn-square btn-primary" (click)="save()">Create</button>
+            </div>
+        </div>
+    </div>
+</div>

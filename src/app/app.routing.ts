@@ -37,6 +37,10 @@ export const routes: Routes = [
       {
         path: 'question',
         loadChildren: () => import('./views/question/question.module').then(m => m.QuestionModule)
+      },
+      {
+        path: 'assignment',
+        loadChildren: () => import('./views/assignment/assignment.module').then(m => m.AssignmentModule)
       }
     ]
   }

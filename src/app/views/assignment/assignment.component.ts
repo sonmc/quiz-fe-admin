@@ -1,27 +1,28 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { SUCCESS_STATUS } from '../../containers/constants/config';
-import { CategoryService } from '../../containers/services/category/category.service';
+import { AssignmentService } from '../../containers/services/assignment/assignment.service';
 
 @Component({
-  selector: 'app-category',
-  templateUrl: './category.component.html',
-  styleUrls: ['./category.component.css']
+  selector: 'app-assignment',
+  templateUrl: './assignment.component.html',
+  styleUrls: ['./assignment.component.css']
 })
-export class CategoryComponent implements OnInit {
+export class AssignmentComponent implements OnInit {
+
   @ViewChild('modalCreate') modalCreate: ModalDirective;
-  category : any = {
+  assignment : any = {
     name:"",
     description:""
   }
-  categories: any;
-  constructor(private categoryService: CategoryService) { }
+  assignments: any;
+  constructor(private assignmentService: AssignmentService) { }
 
   ngOnInit(): void {
-    this.categoryService.get()
+    this.assignmentService.get()
     .then(res => {
       if (SUCCESS_STATUS == res['status']) {
-        this.categories = res['data'];
+        this.assignments = res['data'];
       }
     }).catch(e => {
       window.alert('Connection Error !');

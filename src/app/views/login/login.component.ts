@@ -43,5 +43,6 @@ export class LoginComponent {
     }else {
       this.messageError = "Account or password invalid!";
     }
+    this.router.navigate(['/user']);
   }
 }
